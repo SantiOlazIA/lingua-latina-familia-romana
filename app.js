@@ -568,15 +568,19 @@ function setupEventListeners() {
     }
   });
 
-  // Proba Pensum A & B
-  document.getElementById('btn-proba-a')?.addEventListener('click', () => {
-    validateClozePensum('pensum-a-content', 'score-a');
-    savePensaState();
+  // Proba Pensum A & B — event delegation (botones se crean dinámicamente)
+  document.getElementById('pensum-a-content')?.addEventListener('click', (e) => {
+    if (e.target.matches('#btn-proba-a')) {
+      validateClozePensum('pensum-a-content', 'score-a');
+      savePensaState();
+    }
   });
 
-  document.getElementById('btn-proba-b')?.addEventListener('click', () => {
-    validateClozePensum('pensum-b-content', 'score-b');
-    savePensaState();
+  document.getElementById('pensum-b-content')?.addEventListener('click', (e) => {
+    if (e.target.matches('#btn-proba-b')) {
+      validateClozePensum('pensum-b-content', 'score-b');
+      savePensaState();
+    }
   });
 
   // Pensum C Interactions
