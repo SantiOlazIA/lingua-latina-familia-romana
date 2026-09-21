@@ -1,0 +1,16 @@
+# PDF fuente (material con copyright)
+familia_romana.pdf
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.user
+
+# Logs
+*.log

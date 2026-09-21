@@ -1,0 +1,948 @@
+/* styles.css */
+/* LINGVA LATINA PER SE ILLVSTRATA - Dēsignātiō Graphica "Taste-Skill" */
+/* Colōrēs antīquī: Pergamenum, Atrāmentum, Rubrum Imperiāle */
+
+:root {
+  --bg-parchment: #FBF8F2;
+  --bg-page: #FFFDF9;
+  --bg-card: #FAF6ED;
+  --bg-card-hover: #F2EBDA;
+  --ink-primary: #211D1A;
+  --ink-secondary: #5C544E;
+  --ink-muted: #8F867E;
+  --rubrum-romanum: #8E2424;
+  --rubrum-light: #B83A3A;
+  --border-subtle: #E8E1D3;
+  --border-medium: #D5CBB9;
+  --gold-accent: #C59B4B;
+  --recte-green: #2B6638;
+  --recte-bg: #EAF4EC;
+  --prave-red: #A32B2B;
+  --prave-bg: #FBEBEB;
+  --shadow-book: 0 4px 20px rgba(60, 48, 38, 0.08), 0 1px 3px rgba(60, 48, 38, 0.05);
+  --shadow-popover: 0 6px 24px rgba(45, 35, 25, 0.15), 0 2px 6px rgba(45, 35, 25, 0.08);
+  --font-heading: 'Cinzel', 'Times New Roman', Georgia, serif;
+  --font-body: 'EB Garamond', Georgia, 'Palatino Linotype', serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-parchment);
+  color: var(--ink-primary);
+  font-family: var(--font-body);
+  font-size: 19px;
+  line-height: 1.75;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* Navigātiō Superior */
+.top-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(251, 248, 242, 0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px double var(--border-medium);
+  padding: 0.6rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
+  letter-spacing: 0.12em;
+  color: var(--rubrum-romanum);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-ancient {
+  background: var(--bg-card);
+  color: var(--ink-primary);
+  border: 1px solid var(--border-medium);
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-ancient:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--rubrum-romanum);
+  color: var(--rubrum-romanum);
+}
+
+.btn-ancient.active {
+  background: var(--rubrum-romanum);
+  color: #FFFDF9;
+  border-color: var(--rubrum-romanum);
+}
+
+.chapter-select {
+  background: var(--bg-card);
+  color: var(--rubrum-romanum);
+  border: 1px solid var(--border-medium);
+  padding: 0.35rem 0.85rem;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  border-radius: 2px;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.chapter-select:hover,
+.chapter-select:focus {
+  border-color: var(--rubrum-romanum);
+  background: var(--bg-card-hover);
+}
+
+.color-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-popover);
+  border-radius: 2px;
+  width: 220px;
+  display: none;
+  z-index: 50;
+  flex-direction: column;
+}
+
+.color-dropdown.open {
+  display: flex;
+}
+
+.color-opt-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-align: left;
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.color-opt-btn:last-child {
+  border-bottom: none;
+}
+
+.color-opt-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--rubrum-romanum);
+}
+
+.color-opt-btn.active {
+  font-weight: 700;
+  color: var(--rubrum-romanum);
+  background: var(--bg-page);
+}
+
+/* Notitia Clāvium Macrōnum */
+.nav-hotkey-notice {
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  user-select: none;
+  background: var(--bg-card);
+  padding: 0.3rem 0.65rem;
+  border: 1px solid var(--border-medium);
+  border-radius: 2px;
+}
+
+.pensa-monitio {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  border-left: 3px solid var(--gold-accent);
+  padding: 0.65rem 1rem;
+  font-size: 0.95rem;
+  color: var(--ink-secondary);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border-radius: 2px;
+}
+
+.monitio-icon {
+  font-size: 1.1rem;
+  color: var(--gold-accent);
+}
+
+.vocalis-sample {
+  font-weight: 600;
+  color: var(--rubrum-romanum);
+  letter-spacing: 0.1em;
+}
+
+kbd {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #FFFDF9;
+  border: 1px solid var(--border-medium);
+  border-bottom: 2px solid var(--border-medium);
+  padding: 0.1rem 0.35rem;
+  border-radius: 2px;
+  color: var(--ink-primary);
+}
+
+/* Structura Pāginae */
+.page-container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.book-page {
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  box-shadow: var(--shadow-book);
+  padding: 3.5rem 3.5rem 4rem 3.5rem;
+  position: relative;
+  border-radius: 1px;
+}
+
+/* Titulus Capitulī */
+.chapter-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-medium);
+  position: relative;
+}
+
+.chapter-header::after {
+  content: "♦ ♦ ♦";
+  display: block;
+  font-size: 0.65rem;
+  color: var(--rubrum-romanum);
+  letter-spacing: 0.5em;
+  margin-top: 0.75rem;
+}
+
+.chapter-number {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  letter-spacing: 0.22em;
+  color: var(--rubrum-romanum);
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.chapter-title {
+  font-family: var(--font-heading);
+  font-size: 1.85rem;
+  letter-spacing: 0.15em;
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+/* Sectiō Lēctiōnis */
+.section-header {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+  color: var(--ink-secondary);
+  margin: 2.2rem 0 1.2rem 0;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Versūs et Margo */
+.verse-row {
+  display: flex;
+  margin-bottom: 1rem;
+  position: relative;
+  align-items: baseline;
+}
+
+.verse-num {
+  width: 42px;
+  flex-shrink: 0;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  text-align: right;
+  padding-right: 1.25rem;
+  user-select: none;
+  font-weight: 600;
+}
+
+.verse-text {
+  flex-grow: 1;
+  font-size: 1.22rem;
+  line-height: 1.85;
+}
+
+.verse-marginalia {
+  width: 170px;
+  flex-shrink: 0;
+  margin-left: 1.5rem;
+  font-size: 0.88rem;
+  color: var(--ink-secondary);
+  font-style: italic;
+  line-height: 1.4;
+  padding-left: 0.75rem;
+  border-left: 2px solid var(--border-medium);
+  user-select: none;
+}
+
+/* Verba Interactīva (Hover Tokens) */
+.latin-token {
+  cursor: pointer;
+  padding: 0.05rem 0.12rem;
+  border-radius: 2px;
+  transition: all 0.12s ease;
+  position: relative;
+}
+
+.latin-token:hover,
+.latin-token.active {
+  background-color: #F4ECCF;
+  color: var(--rubrum-romanum);
+  text-decoration: underline;
+  text-decoration-color: var(--rubrum-romanum);
+  text-underline-offset: 3px;
+}
+
+/* Collūstrātiō Cāsuum */
+.latin-token.highlight-nominativus {
+  background-color: #F8EED7;
+  border-bottom: 2px solid #D4A359;
+}
+
+.latin-token.highlight-genetivus {
+  background-color: #FBE6E9;
+  border-bottom: 2px solid #C45B6E;
+}
+
+.latin-token.highlight-ablativus {
+  background-color: #E2ECF5;
+  border-bottom: 2px solid #5C8CAE;
+}
+
+.latin-token.highlight-verbum {
+  background-color: #E5F2E5;
+  border-bottom: 2px solid #52945A;
+}
+
+/* Cartula Grammatica Volans (Hover Popover) */
+.popover-card {
+  position: absolute;
+  z-index: 100;
+  width: 290px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-popover);
+  padding: 0.9rem 1.1rem;
+  border-radius: 2px;
+  pointer-events: auto;
+  font-family: var(--font-body);
+  display: none;
+}
+
+.popover-card.visible {
+  display: block;
+}
+
+.popover-header {
+  border-bottom: 1px solid var(--border-medium);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.popover-lemma {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--rubrum-romanum);
+}
+
+.popover-forma {
+  font-style: italic;
+  color: var(--ink-muted);
+  font-size: 0.95rem;
+}
+
+.popover-details {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.popover-row {
+  display: flex;
+  margin-bottom: 0.25rem;
+}
+
+.popover-label {
+  width: 90px;
+  flex-shrink: 0;
+  color: var(--ink-muted);
+  font-size: 0.82rem;
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.popover-value {
+  color: var(--ink-primary);
+  font-weight: 600;
+}
+
+.popover-notatio {
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--border-subtle);
+  font-size: 0.88rem;
+  font-style: italic;
+  color: var(--ink-secondary);
+}
+
+.popover-footer {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  text-align: right;
+  letter-spacing: 0.05em;
+}
+
+/* Tabula Laterālis (Retractile Drawer) */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(33, 29, 26, 0.4);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lateral-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 440px;
+  max-width: 92vw;
+  height: 100vh;
+  background: var(--bg-card);
+  border-right: 2px solid var(--border-medium);
+  box-shadow: 4px 0 24px rgba(45, 35, 25, 0.2);
+  z-index: 60;
+  transform: translateX(-100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.lateral-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  padding: 1.1rem 1.4rem;
+  border-bottom: 1px solid var(--border-medium);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-parchment);
+}
+
+.drawer-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  letter-spacing: 0.1em;
+  color: var(--rubrum-romanum);
+  font-weight: 700;
+}
+
+.drawer-tabs {
+  display: flex;
+  background: var(--bg-parchment);
+  border-bottom: 1px solid var(--border-medium);
+}
+
+.drawer-tab {
+  flex: 1;
+  padding: 0.75rem;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ink-secondary);
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.drawer-tab.active {
+  color: var(--rubrum-romanum);
+  border-bottom-color: var(--rubrum-romanum);
+  background: var(--bg-card);
+  font-weight: 700;
+}
+
+.drawer-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 1.25rem 1.4rem;
+}
+
+/* Tabula Dēclīnātiōnum Inside Drawer */
+.decl-card {
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+  border-radius: 2px;
+}
+
+.decl-card-header {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  color: var(--rubrum-romanum);
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.decl-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.decl-table th,
+.decl-table td {
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.decl-table th {
+  color: var(--ink-muted);
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.decl-table td:first-child {
+  font-weight: 600;
+  color: var(--ink-secondary);
+  width: 35%;
+}
+
+/* Vocābulārium Inside Drawer */
+.vocab-search-box {
+  margin-bottom: 1rem;
+}
+
+.vocab-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--bg-page);
+  border: 1px solid var(--border-medium);
+  border-radius: 2px;
+  color: var(--ink-primary);
+  outline: none;
+}
+
+.vocab-input:focus {
+  border-color: var(--rubrum-romanum);
+}
+
+.vocab-item {
+  padding: 0.65rem 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.12s ease;
+}
+
+.vocab-item:hover {
+  background: var(--bg-page);
+}
+
+.vocab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.vocab-lemma {
+  font-family: var(--font-heading);
+  font-size: 1.02rem;
+  color: var(--rubrum-romanum);
+  font-weight: 600;
+}
+
+.vocab-pars {
+  font-size: 0.8rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+.vocab-notatio {
+  font-size: 0.9rem;
+  color: var(--ink-secondary);
+  margin-top: 0.2rem;
+}
+
+/* Area Pēnsōrum */
+.pensa-container {
+  margin-top: 4rem;
+  padding-top: 2.5rem;
+  border-top: 2px double var(--border-medium);
+}
+
+.pensa-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.75rem;
+  justify-content: center;
+}
+
+.pensum-tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  padding: 0.5rem 1.25rem;
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-secondary);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s ease;
+}
+
+.pensum-tab-btn.active {
+  background: var(--rubrum-romanum);
+  color: #FFFDF9;
+  border-color: var(--rubrum-romanum);
+  font-weight: 700;
+}
+
+.pensum-panel {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  padding: 2rem 2.5rem;
+  border-radius: 2px;
+}
+
+.pensum-panel.active {
+  display: block;
+}
+
+.pensum-desc {
+  font-style: italic;
+  color: var(--ink-secondary);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 1.05rem;
+}
+
+/* Cloze Questions (Pēnsum A & B) */
+.cloze-row {
+  margin-bottom: 1.15rem;
+  font-size: 1.15rem;
+  line-height: 1.9;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.cloze-num {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  width: 32px;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+
+.cloze-input {
+  background: #FFFDF9;
+  border: none;
+  border-bottom: 2px solid var(--border-medium);
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  color: var(--ink-primary);
+  text-align: center;
+  padding: 0.05rem 0.3rem;
+  margin: 0 0.25rem;
+  outline: none;
+  min-width: 48px;
+  transition: all 0.15s ease;
+}
+
+.cloze-input:focus {
+  border-bottom-color: var(--rubrum-romanum);
+  background: #FAF6ED;
+}
+
+.cloze-input.correct {
+  border-bottom-color: var(--recte-green);
+  color: var(--recte-green);
+  background: var(--recte-bg);
+  font-weight: 600;
+}
+
+.cloze-input.incorrect {
+  border-bottom-color: var(--prave-red);
+  color: var(--prave-red);
+  background: var(--prave-bg);
+}
+
+/* Pēnsum C (Interrogātiōnēs) */
+.interrogatio-card {
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.interrogatio-text {
+  font-size: 1.18rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin-bottom: 0.6rem;
+}
+
+.interrogatio-input {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 1.12rem;
+  background: #FFFDF9;
+  border: 1px solid var(--border-medium);
+  border-radius: 2px;
+  color: var(--ink-primary);
+  margin-bottom: 0.6rem;
+  outline: none;
+}
+
+.interrogatio-input:focus {
+  border-color: var(--rubrum-romanum);
+}
+
+.model-answer-box {
+  background: #F4EFEB;
+  border-left: 3px solid var(--gold-accent);
+  padding: 0.6rem 0.9rem;
+  font-size: 1.05rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.6rem;
+  display: none;
+}
+
+.model-answer-box.visible {
+  display: block;
+}
+
+.model-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+}
+
+.self-eval-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.btn-recte {
+  background: var(--recte-bg);
+  border: 1px solid var(--recte-green);
+  color: var(--recte-green);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.12s ease;
+}
+
+.btn-recte:hover,
+.btn-recte.selected {
+  background: var(--recte-green);
+  color: #FFFDF9;
+}
+
+.btn-prave {
+  background: var(--prave-bg);
+  border: 1px solid var(--prave-red);
+  color: var(--prave-red);
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.75rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.12s ease;
+}
+
+.btn-prave:hover,
+.btn-prave.selected {
+  background: var(--prave-red);
+  color: #FFFDF9;
+}
+
+.pensa-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-medium);
+}
+
+.score-display {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  color: var(--rubrum-romanum);
+  font-weight: 600;
+}
+
+/* Certāmen Celer in Tabulā Laterālī */
+.drill-box {
+  background: var(--bg-page);
+  border: 1px solid var(--border-medium);
+  padding: 1.25rem;
+  border-radius: 2px;
+}
+
+.drill-stats {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--ink-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.drill-question {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--ink-primary);
+  margin-bottom: 1.1rem;
+  line-height: 1.4;
+}
+
+.drill-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.drill-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  color: var(--ink-primary);
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.12s ease;
+}
+
+.drill-btn:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--rubrum-romanum);
+}
+
+.drill-btn.correct {
+  background: var(--recte-bg);
+  border-color: var(--recte-green);
+  color: var(--recte-green);
+  font-weight: 600;
+}
+
+.drill-btn.incorrect {
+  background: var(--prave-bg);
+  border-color: var(--prave-red);
+  color: var(--prave-red);
+}
+
+.drill-feedback {
+  margin-top: 1rem;
+  font-style: italic;
+  font-size: 0.95rem;
+  min-height: 1.5rem;
+  text-align: center;
+}
+
+.cloze-input:focus {
+  border-bottom-color: var(--rubrum-romanum) !important;
+  background: #FFF9ED !important;
+  box-shadow: 0 2px 8px rgba(142, 36, 36, 0.12);
+}
+
+/* Responsīvum (Screen adaptations) */
+@media (max-width: 800px) {
+  .book-page {
+    padding: 2rem 1.25rem;
+  }
+  .verse-marginalia {
+    display: none; /* Hide wide margin notes on small screens; accessible via click/hover */
+  }
+  .verse-num {
+    width: 28px;
+    padding-right: 0.5rem;
+  }
+  .pensum-panel {
+    padding: 1.25rem 1rem;
+  }
+}

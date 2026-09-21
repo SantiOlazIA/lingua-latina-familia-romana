@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="la">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lingua Latina per sē Illustrata — Capitulum I</title>
+  
+  <!-- Fontes Classici: Cinzel ad titulos, EB Garamond ad textum -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Navigātiō Superior -->
+  <nav class="top-nav">
+    <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+      <button class="btn-ancient" id="btn-open-drawer">
+        <span>☰</span> TABVLA &amp; VOCĀBVLA
+      </button>
+      <select id="chapter-select" class="chapter-select" title="Elige Capitulum">
+        <option value="1">CAP. I: IMPERIVM ROMANVM</option>
+        <option value="2">CAP. II: FAMILIA ROMANA</option>
+      </select>
+    </div>
+
+    <div class="nav-controls">
+      <!-- Collūstrātiō Cāsuum (Highlighter) -->
+      <div class="highlighter-wrapper" style="position:relative;">
+        <button class="btn-ancient" id="btn-toggle-colors" title="Collūstrātiō cāsuum">
+          🎨 <span id="current-color-label">COLŌRĒS</span>
+        </button>
+        <div class="color-dropdown" id="color-dropdown">
+          <button class="color-opt-btn active" data-color="null">Nihil (Ordinārium)</button>
+          <button class="color-opt-btn" data-color="nominativus">Nōminātīvus (Subiectum)</button>
+          <button class="color-opt-btn" data-color="genetivus">Genetīvus (Cuius?)</button>
+          <button class="color-opt-btn" data-color="ablativus">Ablātīvus (Locī)</button>
+          <button class="color-opt-btn" data-color="verbum">Verba</button>
+          <button class="color-opt-btn" data-color="totum">Tōtum (Omnēs Colōrēs)</button>
+        </div>
+      </div>
+
+      <span class="nav-hotkey-notice" title="Vōcālēs longae: Alt + a, e, i, o, u aut a=, a-">⌨ Vōcālēs: Alt + a, e, i, o, u</span>
+      <button class="btn-ancient" id="btn-jump-pensa">
+        ⬇ AD PĒNSA
+      </button>
+    </div>
+  </nav>
+
+  <!-- Velum et Tabula Laterālis (Retractile Drawer) -->
+  <div class="drawer-overlay" id="drawer-overlay"></div>
+  <aside class="lateral-drawer" id="lateral-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title">TABVLA &amp; VOCĀBVLA</div>
+      <button class="btn-ancient" id="btn-close-drawer" style="padding:0.2rem 0.5rem;">✕</button>
+    </div>
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" data-target="decl">DĒCLĪNĀTIŌNĒS</button>
+      <button class="drawer-tab" data-target="vocab">VOCĀBVLA</button>
+      <button class="drawer-tab" data-target="drill">⚡ CERTĀMEN</button>
+    </div>
+    <div class="drawer-content">
+      <!-- Tabula Dēclīnātiōnum -->
+      <div id="declinationes-content"></div>
+
+      <!-- Vocābulārium -->
+      <div id="vocabularium-content" style="display:none;">
+        <div class="vocab-search-box">
+          <input type="text" id="vocab-search-input" class="vocab-input" placeholder="Quaere vocābulum..." autocomplete="off" spellcheck="false" />
+        </div>
+        <div id="vocabularium-list"></div>
+      </div>
+
+      <!-- Certāmen Celer (Drill) -->
+      <div id="drill-content" style="display:none;"></div>
+    </div>
+  </aside>
+
+  <!-- Pāgina Libri -->
+  <main class="page-container">
+    <article class="book-page">
+      <!-- Titulus Capitulī -->
+      <header class="chapter-header">
+        <div class="chapter-number" id="page-chapter-num">CAPITVLVM PRIMVM</div>
+        <h1 class="chapter-title" id="page-chapter-title">IMPERIVM ROMANVM</h1>
+      </header>
+
+      <!-- Textus Lēctiōnis -->
+      <section id="textus-container"></section>
+
+      <!-- Area Pēnsōrum -->
+      <section class="pensa-container" id="area-pensa">
+        <div class="chapter-header" style="margin-bottom:1.5rem;">
+          <div class="chapter-number">EXERCITIA</div>
+          <h2 class="chapter-title">PĒNSA</h2>
+        </div>
+
+        <!-- Monitiō ad vōcālēs longās -->
+        <div class="pensa-monitio">
+          <span class="monitio-icon">ℹ</span>
+          <span><strong>Monitiō:</strong> Vōcālēs longae (<span class="vocalis-sample">ā, ē, ī, ō, ū</span>) scrībuntur per clāvēs <kbd>Alt</kbd> + <kbd>a / e / i / o / u</kbd> aut compendiō <kbd>a=</kbd> vel <kbd>a-</kbd>.</span>
+        </div>
+
+        <div class="pensa-nav">
+          <button class="pensum-tab-btn active" data-pensum="a">PĒNSVM A</button>
+          <button class="pensum-tab-btn" data-pensum="b">PĒNSVM B</button>
+          <button class="pensum-tab-btn" data-pensum="c">PĒNSVM C</button>
+        </div>
+
+        <!-- Pēnsum A -->
+        <div class="pensum-panel active" id="pensum-a-panel">
+          <div id="pensum-a-content"></div>
+        </div>
+
+        <!-- Pēnsum B -->
+        <div class="pensum-panel" id="pensum-b-panel">
+          <div id="pensum-b-content"></div>
+        </div>
+
+        <!-- Pēnsum C -->
+        <div class="pensum-panel" id="pensum-c-panel">
+          <div id="pensum-c-content"></div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- Cartula Grammatica Volans (Hover Popover) -->
+  <div class="popover-card" id="popover-card">
+    <div class="popover-header">
+      <span class="popover-lemma" id="pop-lemma">—</span>
+      <span class="popover-forma" id="pop-forma">—</span>
+    </div>
+    <div class="popover-details">
+      <div class="popover-row">
+        <span class="popover-label">Pars:</span>
+        <span class="popover-value" id="pop-pars">—</span>
+      </div>
+      <div class="popover-row">
+        <span class="popover-label">Casus:</span>
+        <span class="popover-value" id="pop-casus">—</span>
+      </div>
+      <div class="popover-row">
+        <span class="popover-label">Numerus:</span>
+        <span class="popover-value" id="pop-numerus">—</span>
+      </div>
+      <div class="popover-row">
+        <span class="popover-label">Genus:</span>
+        <span class="popover-value" id="pop-genus">—</span>
+      </div>
+    </div>
+    <div class="popover-notatio" id="pop-notatio"></div>
+    <div class="popover-footer">preme ad fīgendum vel quaerendum</div>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
