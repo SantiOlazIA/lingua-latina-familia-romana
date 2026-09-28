@@ -24,7 +24,6 @@ let currentChapterNum = 1;
 let currentChapter = capitulumPrimum;
 let pinnedToken = null;
 let activeInputElement = null;
-let currentColorMode = null; // 'nominativus', 'genetivus', 'ablativus', 'verbum', 'totum', or null
 
 // Statūs certāminis (Drill)
 let drillScore = 0;
@@ -56,7 +55,6 @@ function loadChapter(num) {
   renderPensa();
   renderDrill();
   loadSavedPensaState();
-  applyCaseHighlighter();
 }
 
 // 2. Textus Lēctiōnis Reddere
@@ -407,14 +405,18 @@ function renderPensumA() {
 
   pa.quaestiones.forEach((q, idx) => {
     const expl = (q.explicatio || '').replace(/"/g, '&quot;');
+    const hasSecond = q.lacuna2 !== undefined && q.lacuna2 !== null && q.lacuna2 !== '';
+    const interSpan = hasSecond ? `<span>${q.inter || ''}</span>` : '';
+    const secondInput = hasSecond ? `<input type="text" class="cloze-input" data-ans="${q.lacuna2}" autocomplete="off" spellcheck="false" />` : '';
+
     html += `
       <div class="cloze-row" data-qid="${q.id}" data-explicatio="${expl}">
         <span class="cloze-num">${idx + 1}.</span>
-        <span>${q.praefix}</span>
+        <span>${q.praefix || ''}</span>
         <input type="text" class="cloze-input" data-ans="${q.lacuna}" autocomplete="off" spellcheck="false" />
-        <span>${q.inter}</span>
-        <input type="text" class="cloze-input" data-ans="${q.lacuna2}" autocomplete="off" spellcheck="false" />
-        <span>${q.suffix}</span>
+        ${interSpan}
+        ${secondInput}
+        <span>${q.suffix || ''}</span>
         <div class="cloze-feedback-line" id="fb-${q.id}" style="display:none;"></div>
       </div>
     `;
@@ -556,33 +558,7 @@ function renderDrill() {
   container.innerHTML = html;
 }
 
-// 7. Collūstrātiō Cāsuum (Grammatical Case Highlighter)
-function applyCaseHighlighter() {
-  const tokens = document.querySelectorAll('.latin-token');
-  tokens.forEach(tok => {
-    tok.classList.remove('highlight-nominativus', 'highlight-genetivus', 'highlight-ablativus', 'highlight-verbum');
-    if (!currentColorMode) return;
-
-    const data = JSON.parse(decodeURIComponent(tok.dataset.token));
-
-    if (currentColorMode === 'totum') {
-      if (data.c === 'Nōminātīvus') tok.classList.add('highlight-nominativus');
-      if (data.c === 'Genetīvus') tok.classList.add('highlight-genetivus');
-      if (data.c && data.c.includes('Ablātīvus')) tok.classList.add('highlight-ablativus');
-      if (data.p === 'Verbum') tok.classList.add('highlight-verbum');
-    } else if (currentColorMode === 'nominativus' && data.c === 'Nōminātīvus') {
-      tok.classList.add('highlight-nominativus');
-    } else if (currentColorMode === 'genetivus' && data.c === 'Genetīvus') {
-      tok.classList.add('highlight-genetivus');
-    } else if (currentColorMode === 'ablativus' && data.c && data.c.includes('Ablātīvus')) {
-      tok.classList.add('highlight-ablativus');
-    } else if (currentColorMode === 'verbum' && data.p === 'Verbum') {
-      tok.classList.add('highlight-verbum');
-    }
-  });
-}
-
-// 8. Normalizātiō Macrōnum
+// 7. Normalizātiō Macrōnum
 function stripMacrons(str) {
   return str.normalize('NFD')
             .replace(/[\u0300-\u036f]/g, '')
@@ -590,44 +566,16 @@ function stripMacrons(str) {
             .trim();
 }
 
-// 9. Event Listeners & Flow Mode (Auto-advance)
+// 8. Event Listeners & Flow Mode (Auto-advance)
 function setupEventListeners() {
   const popover = document.getElementById('popover-card');
   const drawer = document.getElementById('lateral-drawer');
   const drawerOverlay = document.getElementById('drawer-overlay');
-  const colorDropdown = document.getElementById('color-dropdown');
 
   // Chapter Switcher
   const chapterSelect = document.getElementById('chapter-select');
   chapterSelect?.addEventListener('change', (e) => {
     loadChapter(e.target.value);
-  });
-
-  // Color Dropdown Toggle
-  document.getElementById('btn-toggle-colors')?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    colorDropdown?.classList.toggle('open');
-  });
-
-  document.querySelectorAll('.color-opt-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.color-opt-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentColorMode = btn.dataset.color === 'null' ? null : btn.dataset.color;
-      
-      const label = document.getElementById('current-color-label');
-      if (label) {
-        label.textContent = currentColorMode ? btn.textContent.split(' ')[0].toUpperCase() : 'COLŌRĒS';
-      }
-      colorDropdown?.classList.remove('open');
-      applyCaseHighlighter();
-    });
-  });
-
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('.highlighter-wrapper')) {
-      colorDropdown?.classList.remove('open');
-    }
   });
 
   // Token Hover & Click
