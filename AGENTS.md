@@ -46,3 +46,5 @@ Hic fasciculus cōnstituit praecepta architectūrae, linguae, et dēsignātiōni
   * Macrōnum aequiparātiō: verba cum macrōnibus et sine macrōnibus intellegenda sunt fīdēliter.
 * **Zero-Build Architecture:**
   * Fasciculi purī HTML5, CSS3, et ES Modules (sine necessitate `npm install`).
+* **Dēplōyātiō Automāta (Git & Vercel Push):**
+  * Cum ūsor mūtātiōnem vel emendātiōnem approbāverit (post verificātiōnem completam), statim omnēs mūtātiōnēs cōnsignandae sunt (`git commit`) et ad ramum remōtum mittendae (`git push origin master`) ut statim in Vercel (`https://lingua-latina-familia-romana.vercel.app`) explicentur.
