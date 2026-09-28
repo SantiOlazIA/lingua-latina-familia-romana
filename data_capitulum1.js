@@ -6474,6 +6474,49 @@ export const capitulumPrimum = {
     }
 ],
 
+    // Grammatica Latina Authentica (Ørberg)
+  grammaticaLatina: {
+    titulus: "GRAMMATICA LATINA",
+    subtitulus: "Singulāris et plūrālis",
+    partes: [
+      {
+        sectio: "[A] Masculīnum (-us / -ī)",
+        exemplaSententiarum: [
+          { sg: "Nīlus fluvius magnus est.", pl: "Nīlus et Rhēnus fluviī magnī sunt." }
+        ],
+        regula: "'Fluvius' singulāris est. 'Fluviī' plūrālis est. Singulāris: -us. Plūrālis: -ī.",
+        exemplaVocabulorum: "numerus, numerī; fluvius, fluviī; liber, librī; titulus, titulī.",
+        sententiae: [
+          "I parvus numerus est. I et II parvī numerī sunt."
+        ]
+      },
+      {
+        sectio: "[B] Fēminīnum (-a / -ae)",
+        exemplaSententiarum: [
+          { sg: "Corsica īnsula magna est.", pl: "Corsica et Sardinia īnsulae magnae sunt." }
+        ],
+        regula: "'Īnsula' singulāris est. 'Īnsulae' plūrālis est. Singulāris: -a. Plūrālis: -ae.",
+        exemplaVocabulorum: "littera, litterae; prōvincia, prōvinciae; fēmina, fēminae; puella, puellae.",
+        sententiae: [
+          "A littera Latīna est. A et B litterae Latīnae sunt.",
+          "Gallia est prōvincia Rōmāna. Gallia et Hispānia prōvinciae Rōmānae sunt."
+        ]
+      },
+      {
+        sectio: "[C] Neutrum (-um / -a)",
+        exemplaSententiarum: [
+          { sg: "Brundisium oppidum magnum est.", pl: "Brundisium et Sparta oppida magna sunt." }
+        ],
+        regula: "'Oppidum' singulāris est. 'Oppida' plūrālis est. Singulāris: -um. Plūrālis: -a.",
+        exemplaVocabulorum: "vocābulum, vocābula; exemplum, exempla; capitulum, capitula; pēnsum, pēnsa.",
+        sententiae: [
+          "Littera est vocābulum Latīnum, nōn Graecum.",
+          "Littera et numerus nōn vocābula Graeca, sed Latīna sunt."
+        ]
+      }
+    ]
+  },
+
   pensa: {
     pensumA: {
       titulus: "PĒNSVM A",
@@ -6483,17 +6526,19 @@ export const capitulumPrimum = {
           id: "pa_1",
           praefix: "Nīlus fluvi",
           lacuna: "us",
-          inter: " magn",
-          lacuna2: "us",
-          suffix: " est."
+          inter: " est. Nīlus et Rhēnus fluvi",
+          lacuna2: "ī",
+          suffix: " sunt.",
+          explicatio: "Masculīnum: singulāris -us, plūrālis -ī."
         },
         {
           id: "pa_2",
-          praefix: "Nīlus et Rhēnus fluvi",
-          lacuna: "ī",
-          inter: " magn",
-          lacuna2: "ī",
-          suffix: " sunt."
+          praefix: "Crēta īnsul",
+          lacuna: "a",
+          inter: " est. Crēta et Rhodus īnsul",
+          lacuna2: "ae",
+          suffix: " sunt.",
+          explicatio: "Fēminīnum: singulāris -a, plūrālis -ae."
         },
         {
           id: "pa_3",
@@ -6501,7 +6546,8 @@ export const capitulumPrimum = {
           lacuna: "a",
           inter: " magn",
           lacuna2: "a",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Adiectīvum concordat cum nōmine fēminīnō singulārī (-a -a)."
         },
         {
           id: "pa_4",
@@ -6509,7 +6555,8 @@ export const capitulumPrimum = {
           lacuna: "ae",
           inter: " magn",
           lacuna2: "ae",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Adiectīvum concordat cum nōmine fēminīnō plūrālī (-ae -ae)."
         },
         {
           id: "pa_5",
@@ -6517,7 +6564,8 @@ export const capitulumPrimum = {
           lacuna: "um",
           inter: " magn",
           lacuna2: "um",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Neutrum: singulāris -um -um."
         },
         {
           id: "pa_6",
@@ -6525,7 +6573,8 @@ export const capitulumPrimum = {
           lacuna: "a",
           inter: " magn",
           lacuna2: "a",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Neutrum: plūrālis -a -a."
         },
         {
           id: "pa_7",
@@ -6533,7 +6582,8 @@ export const capitulumPrimum = {
           lacuna: "us",
           inter: " parv",
           lacuna2: "us",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Masculīnum singulāris (-us -us)."
         },
         {
           id: "pa_8",
@@ -6541,7 +6591,8 @@ export const capitulumPrimum = {
           lacuna: "ī",
           inter: " parv",
           lacuna2: "ī",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Masculīnum plūrālis (-ī -ī)."
         },
         {
           id: "pa_9",
@@ -6549,7 +6600,8 @@ export const capitulumPrimum = {
           lacuna: "a",
           inter: " oppid",
           lacuna2: "a",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Neutrum plūrālis: multa oppida."
         },
         {
           id: "pa_10",
@@ -6557,7 +6609,8 @@ export const capitulumPrimum = {
           lacuna: "ī",
           inter: " fluvi",
           lacuna2: "ī",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Masculīnum plūrālis: multī fluviī."
         }
       ]
     },
@@ -6570,61 +6623,71 @@ export const capitulumPrimum = {
           id: "pb_1",
           praefix: "Nīlus ",
           lacuna: "fluvius",
-          suffix: " magnus est."
+          suffix: " magnus est.",
+          explicatio: "Nōmen substantīvum masculīnum: fluvius."
         },
         {
           id: "pb_2",
           praefix: "Tiberis fluvius ",
           lacuna: "parvus",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Nōmen adiectīvum masculīnum (↔ magnus): parvus."
         },
         {
           id: "pb_3",
           praefix: "Rhodus et Melita ",
           lacuna: "īnsulae",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Nōminātīvus plūrālis fēminīnus cum macrōne ī: īnsulae."
         },
         {
           id: "pb_4",
           praefix: "Sparta et Delphī ",
           lacuna: "oppida",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Nōminātīvus plūrālis neutrum: oppida."
         },
         {
           id: "pb_5",
           praefix: "Rōma in Italiā est; Brundisium ",
           lacuna: "quoque",
-          suffix: " in Italiā est."
+          suffix: " in Italiā est.",
+          explicatio: "Coniūnctiō (= etiam): quoque."
         },
         {
           id: "pb_6",
           praefix: "Sparta in Italiā nōn est, ",
           lacuna: "sed",
-          suffix: " in Graeciā."
+          suffix: " in Graeciā.",
+          explicatio: "Coniūnctiō adversātīva (nōn..., sed...): sed."
         },
         {
           id: "pb_7",
           praefix: "Ubi est Gallia? Gallia in ",
           lacuna: "Eurōpā",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Ablātīvus locī cum macrōnibus post 'in': Eurōpā."
         },
         {
           id: "pb_8",
           praefix: "A et B ",
           lacuna: "litterae",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Nōminātīvus plūrālis fēminīnus: litterae."
         },
         {
           id: "pb_9",
           praefix: "'Rōma' ",
           lacuna: "vocābulum",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Nōmen neutrum singulāris cum macrōne ā: vocābulum."
         },
         {
           id: "pb_10",
           praefix: "I et II ",
           lacuna: "numerī",
-          suffix: " sunt."
+          suffix: " sunt.",
+          explicatio: "Nōminātīvus plūrālis masculīnus cum macrōne ī: numerī."
         }
       ]
     },

@@ -13,7 +13,12 @@ Hic fasciculus cōnstituit praecepta architectūrae, linguae, et dēsignātiōni
   * Genera: *Masculīnum*, *Fēminīnum*, *Neutrum*.
   * Persōnae: *Persōna I, II, III*.
   * Tempora & Modī: *Praesēns indicātīvī*, *Infinītīvus*, etc.
-* **Iūdicātiō Exercitiōrum:** *Rēctē!*, *Prāvē!*, *Probā!*, *Ostende exemplum*, *Pūnctīs potītus*.
+* **Iūdicātiō Exercitiōrum & Feedback:**
+  * Actiones/Botōnēs: *Comprobā pēnsum* (vel *Comprobā respōnsa*), *Iterum comprobā*. Vitanda est vox sōla *Probā* ad confūsiōnem cum *Prāvē* dēpellendam.
+  * Status: *Rēctē!* (exactum vel lēne), *Prāvē!* (errātum), *Pūnctīs potītus*.
+  * Feedback Vīsibile (Non latēns in tooltips):
+    1. Si macrō dēficit (Optiō C lēnis): colōre vīridī pūnctum datur, sed statim sub versū mōnstrātur monitiō paedagōgica vīsibilis (*ℹ Rēctē! Sed nōtā macrōnem: ...*).
+    2. Si errātum est (*Prāvē*): colōre rubrō mōnstrātur fōrma rēcta (*✘ Prāvē! Rēctē: ...*) ūnā cum brevī explicātiōne grammaticā Latīnē.
 
 ---
 

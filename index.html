@@ -23,6 +23,10 @@
       <select id="chapter-select" class="chapter-select" title="Elige Capitulum">
         <option value="1">CAP. I: IMPERIVM ROMANVM</option>
         <option value="2">CAP. II: FAMILIA ROMANA</option>
+        <option value="3">CAP. III: PVER IMPROBVS</option>
+        <option value="4">CAP. IV: DOMINVS ET SERVI</option>
+        <option value="5">CAP. V: VILLA ET HORTVS</option>
+        <option value="6">CAP. VI: VIA LATINA</option>
       </select>
     </div>
 
@@ -67,10 +71,76 @@
 
       <!-- Vocābulārium -->
       <div id="vocabularium-content" style="display:none;">
-        <div class="vocab-search-box">
+        <!-- Navigātiō Superior Vocābulāriī (Breadcrumb / Status) -->
+        <div class="vocab-nav-bar" id="vocab-nav-bar" style="display:none;">
+          <button class="btn-ancient" id="btn-vocab-home" style="padding:0.25rem 0.6rem; font-size:0.75rem;">
+            ◀ AD INITIVM
+          </button>
+          <span class="vocab-current-view-title" id="vocab-view-title">PER CAPITVLA</span>
+        </div>
+
+        <!-- Pāgina Prīma: Initium Vocābulāriī (Home Page / Menu) -->
+        <div id="vocab-home-view">
+          <p class="vocab-home-intro">Elige modum dēspiciendī vocābula:</p>
+          
+          <div class="vocab-home-options">
+            <button class="vocab-choice-card" data-mode="quaestio">
+              <div class="choice-icon">🔍</div>
+              <div class="choice-body">
+                <div class="choice-title">QVAESTIŌ CELER</div>
+                <div class="choice-desc">Quaere statim quodlibet vocābulum ex omnibus capitulīs.</div>
+              </div>
+            </button>
+
+            <button class="vocab-choice-card" data-mode="capitulum">
+              <div class="choice-icon">📖</div>
+              <div class="choice-body">
+                <div class="choice-title">PER CAPITVLA</div>
+                <div class="choice-desc">Vocābula nova dīvīsa secundum librī capitula.</div>
+              </div>
+            </button>
+
+            <button class="vocab-choice-card" data-mode="partes">
+              <div class="choice-icon">🏛</div>
+              <div class="choice-body">
+                <div class="choice-title">PER PARTĒS ŌRĀTIŌNIS</div>
+                <div class="choice-desc">Dispositiō secundum nōmina, verba, praepositiōnēs, etc.</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- View: Per Capitula (Sub-filtra Capituli in summō) -->
+        <div id="vocab-cap-subfilters" class="vocab-subfilters" style="display:none;">
+          <button class="vocab-sub-btn active" data-cap="1">CAP. I</button>
+          <button class="vocab-sub-btn" data-cap="2">CAP. II</button>
+          <button class="vocab-sub-btn" data-cap="3">CAP. III</button>
+          <button class="vocab-sub-btn" data-cap="4">CAP. IV</button>
+          <button class="vocab-sub-btn" data-cap="5">CAP. V</button>
+          <button class="vocab-sub-btn" data-cap="6">CAP. VI</button>
+        </div>
+
+        <!-- View: Per Partēs Ōrātiōnis (Sub-filtra Partium in summō) -->
+        <div id="vocab-partes-subfilters" class="vocab-subfilters vocab-chips-scroll" style="display:none;">
+          <button class="vocab-sub-btn active" data-pos="omnia">OMNĒS PARTĒS</button>
+          <button class="vocab-sub-btn" data-pos="substantiva">N. SUBSTANTĪVA</button>
+          <button class="vocab-sub-btn" data-pos="adiectiva">N. ADIECTĪVA</button>
+          <button class="vocab-sub-btn" data-pos="propria">N. PROPRIA</button>
+          <button class="vocab-sub-btn" data-pos="verba">VERBA</button>
+          <button class="vocab-sub-btn" data-pos="pronomina">PRŌNŌMINA</button>
+          <button class="vocab-sub-btn" data-pos="numeralia">NVMERĀLIA</button>
+          <button class="vocab-sub-btn" data-pos="praepositiones">PRAEPOSITIŌNĒS</button>
+          <button class="vocab-sub-btn" data-pos="coniunctiones">CONIŪNCTIŌNĒS</button>
+          <button class="vocab-sub-btn" data-pos="adverbia">ADVERBIA</button>
+        </div>
+
+        <!-- Quaesītiōnis Pyxis (Search input) -->
+        <div class="vocab-search-box" id="vocab-search-box" style="display:none;">
           <input type="text" id="vocab-search-input" class="vocab-input" placeholder="Quaere vocābulum..." autocomplete="off" spellcheck="false" />
         </div>
-        <div id="vocabularium-list"></div>
+
+        <!-- Index Vocābulōrum -->
+        <div id="vocabularium-list" style="display:none;"></div>
       </div>
 
       <!-- Certāmen Celer (Drill) -->
@@ -89,6 +159,15 @@
 
       <!-- Textus Lēctiōnis -->
       <section id="textus-container"></section>
+
+      <!-- Grammatica Latina (Ørberg) -->
+      <section class="grammatica-container" id="area-grammatica">
+        <div class="chapter-header" style="margin-top:2.5rem; margin-bottom:1.5rem;">
+          <div class="chapter-number">GRAMMATICA LATINA</div>
+          <h2 class="chapter-title" id="grammatica-subtitulus">Singulāris et plūrālis</h2>
+        </div>
+        <div id="grammatica-content"></div>
+      </section>
 
       <!-- Area Pēnsōrum -->
       <section class="pensa-container" id="area-pensa">

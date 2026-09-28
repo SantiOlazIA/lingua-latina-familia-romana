@@ -4,11 +4,19 @@
 
 import { capitulumPrimum } from './data_capitulum1.js';
 import { capitulumSecundum } from './data_capitulum2.js';
+import { capitulumTertium } from './data_capitulum3.js';
+import { capitulumQuartum } from './data_capitulum4.js';
+import { capitulumQuintum } from './data_capitulum5.js';
+import { capitulumSextum } from './data_capitulum6.js';
 
 // Dāta capitulōrum
 const capitula = {
   1: capitulumPrimum,
-  2: capitulumSecundum
+  2: capitulumSecundum,
+  3: capitulumTertium,
+  4: capitulumQuartum,
+  5: capitulumQuintum,
+  6: capitulumSextum
 };
 
 // Statūs globālēs
@@ -42,6 +50,7 @@ function loadChapter(num) {
 
   // Reddere omnia
   renderCapitulum();
+  renderGrammaticaLatina();
   renderTabulaDeclinationum();
   renderVocabularium();
   renderPensa();
@@ -134,51 +143,252 @@ function renderTabulaDeclinationum() {
   container.innerHTML = html;
 }
 
-// 4. Vocābulārium (Cumulātīvum usque ad hoc capitulum)
-function getCumulativeVocab() {
+// 3b. Grammatica Latina (Authentica ex Ørberg)
+function renderGrammaticaLatina() {
+  const sectionEl = document.getElementById('area-grammatica');
+  const container = document.getElementById('grammatica-content');
+  const subtitulusEl = document.getElementById('grammatica-subtitulus');
+  if (!container || !currentChapter.grammaticaLatina) return;
+  if (sectionEl) sectionEl.style.display = 'block';
+
+  const g = currentChapter.grammaticaLatina;
+  if (subtitulusEl) subtitulusEl.textContent = g.subtitulus || "Regulae Grammaticae";
+
+  let html = '';
+  g.partes.forEach((pars) => {
+    html += `<div class="grammatica-card">`;
+    if (pars.sectio) {
+      html += `<div class="grammatica-card-title">${pars.sectio}</div>`;
+    }
+    if (pars.subsectio) {
+      html += `<div style="font-family:var(--font-heading); font-weight:600; color:var(--rubrum-romanum); margin-bottom:0.4rem;">${pars.subsectio}</div>`;
+    }
+
+    // Exempla Sententiarum (Tabula Singularis / Pluralis)
+    if (pars.exemplaSententiarum && pars.exemplaSententiarum.length > 0) {
+      html += `
+        <table class="grammatica-table">
+          <thead>
+            <tr>
+              <th>SINGVLĀRIS</th>
+              <th>PLŪRĀLIS</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      pars.exemplaSententiarum.forEach((ex) => {
+        html += `
+          <tr>
+            <td><em>${ex.sg}</em></td>
+            <td><em>${ex.pl}</em></td>
+          </tr>
+        `;
+      });
+      html += `</tbody></table>`;
+    }
+
+    // Regula
+    if (pars.regula) {
+      html += `<div class="grammatica-regula">${pars.regula}</div>`;
+    }
+
+    // Sententiae exemplares
+    if (pars.sententiae && pars.sententiae.length > 0) {
+      html += `<ul class="grammatica-exempla-list">`;
+      pars.sententiae.forEach((s) => {
+        html += `<li>${s}</li>`;
+      });
+      html += `</ul>`;
+    }
+
+    // Vocabula exemplaria
+    if (pars.exemplaVocabulorum) {
+      html += `<div class="grammatica-vocab-note"><strong>Exempla vocābulōrum:</strong> ${pars.exemplaVocabulorum.replace(/\\n/g, '<br>')}</div>`;
+    }
+
+    html += `</div>`;
+  });
+
+  container.innerHTML = html;
+}
+
+// 4. Vocābulārium cum Pāginā Prīmā et Duobus Indicibus
+let currentVocabMode = 'home'; // 'home', 'quaestio', 'capitulum', 'partes'
+let currentVocabCapFilter = 1;
+let currentVocabPosFilter = 'omnia';
+
+function getAllVocab() {
   const map = new Map();
-  for (let i = 1; i <= currentChapterNum; i++) {
-    if (capitula[i] && capitula[i].vocabularium) {
-      capitula[i].vocabularium.forEach(item => {
-        map.set(item.lemma, item);
+  // Include all loaded chapters in the dictionary index
+  Object.keys(capitula).forEach(numStr => {
+    const num = parseInt(numStr, 10);
+    if (capitula[num] && capitula[num].vocabularium) {
+      capitula[num].vocabularium.forEach(item => {
+        map.set(item.lemma, { ...item, capNum: num });
+      });
+    }
+  });
+  return Array.from(map.values()).sort((a, b) => a.lemma.localeCompare(b.lemma, 'la'));
+}
+
+function classifyPartOfSpeech(pars) {
+  const p = (pars || '').toLowerCase();
+  if (p.includes('proprium')) return { key: 'propria', label: 'Nōmina Propria' };
+  if (p.includes('substantīvum') || p.includes('substantivum')) return { key: 'substantiva', label: 'Nōmina Substantīva' };
+  if (p.includes('adiectīvum') || p.includes('adiectivum')) return { key: 'adiectiva', label: 'Nōmina Adiectīva' };
+  if (p.includes('numerāle') || p.includes('numerale')) return { key: 'numeralia', label: 'Nōmina Numerālia' };
+  if (p.includes('prōnōmen') || p.includes('pronomen')) return { key: 'pronomina', label: 'Prōnōmina' };
+  if (p.includes('verbum')) return { key: 'verba', label: 'Verba' };
+  if (p.includes('praepositiō') || p.includes('praepositio')) return { key: 'praepositiones', label: 'Praepositiōnēs' };
+  if (p.includes('coniūnctiō') || p.includes('coniunctio') || p.includes('particula')) return { key: 'coniunctiones', label: 'Coniūnctiōnēs & Particulae' };
+  if (p.includes('adverbium')) return { key: 'adverbia', label: 'Adverbia' };
+  return { key: 'varia', label: 'Varia' };
+}
+
+function switchVocabView(mode, titleText = '') {
+  currentVocabMode = mode;
+  const homeView = document.getElementById('vocab-home-view');
+  const navBar = document.getElementById('vocab-nav-bar');
+  const viewTitle = document.getElementById('vocab-view-title');
+  const capSubfilters = document.getElementById('vocab-cap-subfilters');
+  const partesSubfilters = document.getElementById('vocab-partes-subfilters');
+  const searchBox = document.getElementById('vocab-search-box');
+  const searchInput = document.getElementById('vocab-search-input');
+  const vocabList = document.getElementById('vocabularium-list');
+
+  if (mode === 'home') {
+    if (homeView) homeView.style.display = 'block';
+    if (navBar) navBar.style.display = 'none';
+    if (capSubfilters) capSubfilters.style.display = 'none';
+    if (partesSubfilters) partesSubfilters.style.display = 'none';
+    if (searchBox) searchBox.style.display = 'none';
+    if (vocabList) vocabList.style.display = 'none';
+    if (searchInput) searchInput.value = '';
+    return;
+  }
+
+  // Active view: hide home, show controls & list
+  if (homeView) homeView.style.display = 'none';
+  if (navBar) navBar.style.display = 'flex';
+  if (vocabList) vocabList.style.display = 'block';
+  if (searchBox) searchBox.style.display = 'block';
+
+  if (viewTitle) {
+    viewTitle.textContent = titleText || (
+      mode === 'quaestio' ? 'QVAESTIŌ CELER' :
+      mode === 'capitulum' ? 'PER CAPITVLA' : 'PER PARTĒS ŌRĀTIŌNIS'
+    );
+  }
+
+  if (capSubfilters) {
+    capSubfilters.style.display = mode === 'capitulum' ? 'flex' : 'none';
+    if (mode === 'capitulum') {
+      currentVocabCapFilter = currentChapterNum;
+      const subBtns = capSubfilters.querySelectorAll('.vocab-sub-btn');
+      subBtns.forEach(btn => {
+        const cap = parseInt(btn.dataset.cap, 10);
+        btn.classList.toggle('active', cap === currentVocabCapFilter);
       });
     }
   }
-  return Array.from(map.values()).sort((a, b) => a.lemma.localeCompare(b.lemma, 'la'));
+  if (partesSubfilters) {
+    partesSubfilters.style.display = mode === 'partes' ? 'flex' : 'none';
+  }
+
+  if (mode === 'quaestio' && searchInput) {
+    setTimeout(() => searchInput.focus(), 50);
+  }
+
+  renderVocabularium(searchInput?.value || '');
 }
 
 function renderVocabularium(filterQuery = '') {
   const container = document.getElementById('vocabularium-list');
-  if (!container) return;
+  if (!container || currentVocabMode === 'home') return;
 
   const query = filterQuery.trim().toLowerCase();
-  const allWords = getCumulativeVocab();
-  const words = allWords.filter((item) => {
-    if (!query) return true;
-    return item.lemma.toLowerCase().includes(query) ||
-           item.pars.toLowerCase().includes(query) ||
-           item.notatio.toLowerCase().includes(query);
-  });
+  let words = getAllVocab();
+
+  // 1. Filtrum per Capitula
+  if (currentVocabMode === 'capitulum') {
+    words = words.filter(item => item.capNum === currentVocabCapFilter);
+  }
+
+  // 2. Filtrum per Partem Ōrātiōnis (sub-filtra in summō)
+  if (currentVocabMode === 'partes' && currentVocabPosFilter !== 'omnia') {
+    words = words.filter(item => {
+      const cls = classifyPartOfSpeech(item.pars);
+      return cls.key === currentVocabPosFilter;
+    });
+  }
+
+  // 3. Cursus quaesītiōnis (search input)
+  if (query) {
+    words = words.filter((item) => {
+      return item.lemma.toLowerCase().includes(query) ||
+             item.pars.toLowerCase().includes(query) ||
+             item.notatio.toLowerCase().includes(query);
+    });
+  }
 
   if (words.length === 0) {
-    container.innerHTML = '<p style="font-style:italic; color:var(--ink-muted); padding:1rem;">Nūllum vocābulum inventum est.</p>';
+    container.innerHTML = '<p style="font-style:italic; color:var(--ink-muted); padding:1rem; text-align:center;">Nūllum vocābulum inventum est.</p>';
     return;
   }
 
   let html = '';
-  words.forEach((item) => {
-    html += `
-      <div class="vocab-item" data-lemma="${item.lemma}">
-        <div class="vocab-header">
-          <span class="vocab-lemma">${item.lemma}</span>
-          <span class="vocab-pars">${item.pars} (${item.genus})</span>
-        </div>
-        <div class="vocab-notatio">${item.notatio}</div>
-      </div>
-    `;
-  });
+
+  // 4. Modus per Partēs: si omnes partes selectae sunt, dividimus per titulos
+  if (currentVocabMode === 'partes' && currentVocabPosFilter === 'omnia') {
+    const groups = {};
+    const groupOrder = [
+      { key: 'substantiva', label: 'Nōmina Substantīva' },
+      { key: 'adiectiva', label: 'Nōmina Adiectīva' },
+      { key: 'propria', label: 'Nōmina Propria' },
+      { key: 'numeralia', label: 'Nōmina Numerālia' },
+      { key: 'pronomina', label: 'Prōnōmina' },
+      { key: 'verba', label: 'Verba' },
+      { key: 'praepositiones', label: 'Praepositiōnēs' },
+      { key: 'coniunctiones', label: 'Coniūnctiōnēs & Particulae' },
+      { key: 'adverbia', label: 'Adverbia' },
+      { key: 'varia', label: 'Varia' }
+    ];
+
+    words.forEach(item => {
+      const cls = classifyPartOfSpeech(item.pars);
+      if (!groups[cls.key]) groups[cls.key] = [];
+      groups[cls.key].push(item);
+    });
+
+    groupOrder.forEach(grp => {
+      if (groups[grp.key] && groups[grp.key].length > 0) {
+        html += `<div class="vocab-group-header">${grp.label} (${groups[grp.key].length})</div>`;
+        groups[grp.key].forEach(item => {
+          html += renderVocabItemHtml(item);
+        });
+      }
+    });
+  } else {
+    // Modus Quaestio, per Capitulum, aut pars singularis selecta
+    words.forEach((item) => {
+      html += renderVocabItemHtml(item);
+    });
+  }
 
   container.innerHTML = html;
+}
+
+function renderVocabItemHtml(item) {
+  const capBadge = currentVocabMode !== 'capitulum' ? `<span style="font-size:0.75rem; color:var(--ink-muted); margin-left:0.4rem;">[Cap. ${item.capNum}]</span>` : '';
+  return `
+    <div class="vocab-item" data-lemma="${item.lemma}">
+      <div class="vocab-header">
+        <span class="vocab-lemma">${item.lemma}${capBadge}</span>
+        <span class="vocab-pars">${item.pars} (${item.genus})</span>
+      </div>
+      <div class="vocab-notatio">${item.notatio}</div>
+    </div>
+  `;
 }
 
 // 5. Pēnsa Interactīva
@@ -196,21 +406,23 @@ function renderPensumA() {
   let html = `<p class="pensum-desc">${pa.descriptio}</p>`;
 
   pa.quaestiones.forEach((q, idx) => {
+    const expl = (q.explicatio || '').replace(/"/g, '&quot;');
     html += `
-      <div class="cloze-row" data-qid="${q.id}">
+      <div class="cloze-row" data-qid="${q.id}" data-explicatio="${expl}">
         <span class="cloze-num">${idx + 1}.</span>
         <span>${q.praefix}</span>
-        <input type="text" class="cloze-input" data-ans="${q.lacuna}" autocomplete="off" spellcheck="false" style="width:${Math.max(44, q.lacuna.length * 20)}px" />
+        <input type="text" class="cloze-input" data-ans="${q.lacuna}" autocomplete="off" spellcheck="false" />
         <span>${q.inter}</span>
-        <input type="text" class="cloze-input" data-ans="${q.lacuna2}" autocomplete="off" spellcheck="false" style="width:${Math.max(44, q.lacuna2.length * 20)}px" />
+        <input type="text" class="cloze-input" data-ans="${q.lacuna2}" autocomplete="off" spellcheck="false" />
         <span>${q.suffix}</span>
+        <div class="cloze-feedback-line" id="fb-${q.id}" style="display:none;"></div>
       </div>
     `;
   });
 
   html += `
     <div class="pensa-actions">
-      <button class="btn-ancient active" id="btn-proba-a">✔ PROBĀ PĒNSVM A</button>
+      <button class="btn-ancient active" id="btn-proba-a">🔍 COMPROBĀ PĒNSVM A</button>
       <div class="score-display" id="score-a"></div>
     </div>
   `;
@@ -226,19 +438,21 @@ function renderPensumB() {
   let html = `<p class="pensum-desc">${pb.descriptio}</p>`;
 
   pb.quaestiones.forEach((q, idx) => {
+    const expl = (q.explicatio || '').replace(/"/g, '&quot;');
     html += `
-      <div class="cloze-row" data-qid="${q.id}">
+      <div class="cloze-row" data-qid="${q.id}" data-explicatio="${expl}">
         <span class="cloze-num">${idx + 1}.</span>
         <span>${q.praefix}</span>
-        <input type="text" class="cloze-input" data-ans="${q.lacuna}" autocomplete="off" spellcheck="false" style="width:${Math.max(65, q.lacuna.length * 16)}px" />
+        <input type="text" class="cloze-input" data-ans="${q.lacuna}" autocomplete="off" spellcheck="false" />
         <span>${q.suffix}</span>
+        <div class="cloze-feedback-line" id="fb-${q.id}" style="display:none;"></div>
       </div>
     `;
   });
 
   html += `
     <div class="pensa-actions">
-      <button class="btn-ancient active" id="btn-proba-b">✔ PROBĀ PĒNSVM B</button>
+      <button class="btn-ancient active" id="btn-proba-b">🔍 COMPROBĀ PĒNSVM B</button>
       <div class="score-display" id="score-b"></div>
     </div>
   `;
@@ -489,6 +703,47 @@ function setupEventListeners() {
     renderVocabularium(e.target.value);
   });
 
+  // Vocab Home Choice Cards (Quaestio Celer, Per Capitula, Per Partes)
+  document.querySelectorAll('.vocab-choice-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const mode = card.dataset.mode;
+      if (mode === 'quaestio') {
+        switchVocabView('quaestio', 'QVAESTIŌ CELER');
+      } else if (mode === 'capitulum') {
+        switchVocabView('capitulum', 'PER CAPITVLA');
+      } else if (mode === 'partes') {
+        switchVocabView('partes', 'PER PARTĒS ŌRĀTIŌNIS');
+      }
+    });
+  });
+
+  // Vocab Return to Home Button
+  document.getElementById('btn-vocab-home')?.addEventListener('click', () => {
+    switchVocabView('home');
+  });
+
+  // Sub-filtra Capituli
+  const vocabCapSubButtons = document.querySelectorAll('#vocab-cap-subfilters .vocab-sub-btn');
+  vocabCapSubButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      vocabCapSubButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentVocabCapFilter = parseInt(btn.dataset.cap, 10);
+      renderVocabularium(vocabSearch?.value || '');
+    });
+  });
+
+  // Sub-filtra Partium Ōrātiōnis (in summō indicis)
+  const vocabPosSubButtons = document.querySelectorAll('#vocab-partes-subfilters .vocab-sub-btn');
+  vocabPosSubButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      vocabPosSubButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentVocabPosFilter = btn.dataset.pos;
+      renderVocabularium(vocabSearch?.value || '');
+    });
+  });
+
   // Pēnsa Tabs
   const pensumTabs = document.querySelectorAll('.pensum-tab-btn');
   pensumTabs.forEach((tab) => {
@@ -538,28 +793,18 @@ function setupEventListeners() {
     }
   });
 
-  // Flow Mode: Auto-advance cloze inputs on typing
+  // Pēnsa Inputs: Handle macrons and save state (auto-advance removed so letter count is not revealed)
   document.addEventListener('input', (e) => {
-    if (e.target.matches('.cloze-input')) {
-      handleMacronReplacement(e.target);
-      savePensaState();
-
-      // Check auto-advance condition
-      const val = e.target.value.trim();
-      const expected = (e.target.dataset.ans || '').trim();
-      if (val.length >= expected.length && expected.length > 0) {
-        advanceToNextCloze(e.target);
-      }
-    } else if (e.target.matches('.interrogatio-input, .vocab-input')) {
+    if (e.target.matches('.cloze-input, .interrogatio-input, .vocab-input')) {
       handleMacronReplacement(e.target);
       savePensaState();
     }
   });
 
-  // Flow Mode: Navigation via Space, Enter, Backspace
+  // Cloze Navigation: Jump to next cloze on Enter; go back on Backspace if empty
   document.addEventListener('keydown', (e) => {
     if (e.target.matches('.cloze-input')) {
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (e.key === 'Enter') {
         e.preventDefault();
         advanceToNextCloze(e.target);
       } else if (e.key === 'Backspace' && e.target.value.length === 0) {
@@ -710,6 +955,7 @@ function hidePopover() {
 
 function highlightInVocabularium(lemma) {
   const baseLemma = lemma.split(',')[0].trim().toLowerCase();
+  switchVocabView('quaestio', 'QVAESTIŌ CELER');
   const searchInput = document.getElementById('vocab-search-input');
   if (searchInput) {
     searchInput.value = baseLemma;
@@ -752,34 +998,77 @@ function handleMacronReplacement(input) {
 // 13. Validation Logic
 function validateClozePensum(containerId, scoreId) {
   const container = document.getElementById(containerId);
-  const inputs = container.querySelectorAll('.cloze-input');
+  const rows = container.querySelectorAll('.cloze-row');
   let correctCount = 0;
-  const total = inputs.length;
+  let totalInputs = 0;
 
-  inputs.forEach((input) => {
-    const userVal = input.value.trim();
-    const expected = input.dataset.ans.trim();
+  rows.forEach((row) => {
+    const qid = row.dataset.qid;
+    const explicatio = row.dataset.explicatio || '';
+    const inputs = Array.from(row.querySelectorAll('.cloze-input'));
+    const feedbackBox = row.querySelector('.cloze-feedback-line');
 
-    const isExact = (userVal === expected);
-    const isLenient = (stripMacrons(userVal) === stripMacrons(expected));
+    let rowHasError = false;
+    let rowHasMacronWarning = false;
+    let errorDetails = [];
+    let macronDetails = [];
 
-    input.classList.remove('correct', 'incorrect');
-    if (isExact) {
-      input.classList.add('correct');
-      correctCount++;
-    } else if (isLenient) {
-      input.classList.add('correct');
-      input.title = `Macrōnēs dēficiunt: rēctē est '${expected}'`;
-      correctCount++;
-    } else {
-      input.classList.add('incorrect');
-      input.title = `Rēctē est: '${expected}'`;
+    inputs.forEach((input) => {
+      totalInputs++;
+      const userVal = input.value.trim();
+      const expected = input.dataset.ans.trim();
+
+      const isExact = (userVal === expected);
+      const isLenient = (stripMacrons(userVal) === stripMacrons(expected));
+
+      input.classList.remove('correct', 'incorrect');
+
+      if (isExact) {
+        input.classList.add('correct');
+        correctCount++;
+      } else if (isLenient) {
+        // Option C: Lenient point granted, but with visible educational tip
+        input.classList.add('correct');
+        correctCount++;
+        rowHasMacronWarning = true;
+        macronDetails.push(`'${userVal}' ➔ <em>${expected}</em>`);
+      } else {
+        input.classList.add('incorrect');
+        rowHasError = true;
+        errorDetails.push(`Rēctē: <em>${expected}</em>`);
+      }
+    });
+
+    // Display inline feedback line if needed
+    if (feedbackBox) {
+      if (rowHasError) {
+        feedbackBox.className = 'cloze-feedback-line error';
+        let msg = `✘ <strong>Prāvē!</strong> ${errorDetails.join(', ')}`;
+        if (explicatio) msg += ` — <span style="font-style:italic;">${explicatio}</span>`;
+        feedbackBox.innerHTML = msg;
+        feedbackBox.style.display = 'flex';
+      } else if (rowHasMacronWarning) {
+        feedbackBox.className = 'cloze-feedback-line tip';
+        let msg = `ℹ <strong>Rēctē!</strong> Sed nōtā macrōnem: ${macronDetails.join(', ')}`;
+        if (explicatio) msg += ` — <span style="font-style:italic;">${explicatio}</span>`;
+        feedbackBox.innerHTML = msg;
+        feedbackBox.style.display = 'flex';
+      } else {
+        feedbackBox.style.display = 'none';
+        feedbackBox.innerHTML = '';
+      }
     }
   });
 
   const scoreEl = document.getElementById(scoreId);
   if (scoreEl) {
-    scoreEl.textContent = `PŪNCTA: ${correctCount} / ${total} ${correctCount === total ? '✔ OPTIMĒ!' : ''}`;
+    scoreEl.textContent = `PŪNCTA: ${correctCount} / ${totalInputs} ${correctCount === totalInputs ? '✔ OPTIMĒ!' : ''}`;
+  }
+
+  // Update check button label to allow re-checking
+  const btn = container.querySelector('.pensa-actions button');
+  if (btn) {
+    btn.textContent = '🔄 ITERVM COMPROBĀ';
   }
 }
 

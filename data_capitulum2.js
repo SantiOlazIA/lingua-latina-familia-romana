@@ -6671,6 +6671,64 @@ export const capitulumSecundum = {
     }
 ],
 
+    // Grammatica Latina Authentica (Ørberg)
+  grammaticaLatina: {
+    titulus: "GRAMMATICA LATINA",
+    subtitulus: "Masculīnum, fēminīnum, neutrum & Genetīvus",
+    partes: [
+      {
+        sectio: "I. Masculīnum, fēminīnum, neutrum",
+        regula: "'Servus' est vocābulum masculīnum (-us / -er). 'Ancilla' est vocābulum fēminīnum (-a). 'Oppidum' est vocābulum neutrum (-um).",
+        exemplaSententiarum: [],
+        exemplaVocabulorum: "Masculīna: fīlius, dominus, puer, vir; fluvius, ōceanus, numerus, liber, titulus.\nFēminīna: fēmina, puella, fīlia, domina; īnsula, prōvincia, littera, familia, pāgina.\nNeutra: oppidum, imperium, vocābulum, capitulum, exemplum, pēnsum.",
+        sententiae: [
+          "Mārcus puer Rōmānus est; Iūlius vir Rōmānus est (masculīna).",
+          "Iūlia puella Rōmāna est; Aemilia fēmina Rōmāna est (fēminīna).",
+          "Tūsculum oppidum Rōmānum est (neutrum)."
+        ]
+      },
+      {
+        sectio: "II. Genetīvus singulāris et plūrālis",
+        subsectio: "[A] Masculīnum (Genetīvus: -ī / -ōrum)",
+        exemplaSententiarum: [
+          { sg: "Iūlius dominus servī (Dāvī) est.", pl: "Iūlius dominus servōrum (Dāvī et Mēdī) est." }
+        ],
+        regula: "'Servī' genetīvus singulāris est (-ī). 'Servōrum' est genetīvus plūrālis (-ōrum).",
+        exemplaVocabulorum: "servus -> servī / servōrum; fīlius -> fīliī / fīliōrum; dominus -> dominī / dominōrum.",
+        sententiae: [
+          "Cuius servus est Dāvus? Iūliī servus est.",
+          "Mēdus et Dāvus servī Iūliī sunt. Iūlius est dominus multōrum servōrum."
+        ]
+      },
+      {
+        sectio: "",
+        subsectio: "[B] Fēminīnum (Genetīvus: -ae / -ārum)",
+        exemplaSententiarum: [
+          { sg: "Aemilia domina ancillae (Syrae) est.", pl: "Aemilia domina ancillārum (Syrae et Dēliae) est." }
+        ],
+        regula: "'Ancillae' genetīvus singulāris est (-ae). 'Ancillārum' est genetīvus plūrālis (-ārum).",
+        exemplaVocabulorum: "ancilla -> ancillae / ancillārum; puella -> puellae / puellārum; fīlia -> fīliae / fīliārum.",
+        sententiae: [
+          "Syra est ancilla Aemiliae.",
+          "Aemilia est domina multārum ancillārum."
+        ]
+      },
+      {
+        sectio: "",
+        subsectio: "[C] Neutrum (Genetīvus: -ī / -ōrum)",
+        exemplaSententiarum: [
+          { sg: "D est prīma littera vocābulī 'dominus'.", pl: "Numerus vocābulōrum magnus est." }
+        ],
+        regula: "'Vocābulī' genetīvus singulāris est (-ī). 'Vocābulōrum' est genetīvus plūrālis (-ōrum).",
+        exemplaVocabulorum: "oppidum -> oppidī / oppidōrum; vocābulum -> vocābulī / vocābulōrum; capitulum -> capitulī / capitulōrum.",
+        sententiae: [
+          "'Familia Rōmāna' est titulus capitulī secundī.",
+          "Numerus capitulōrum nōn parvus est."
+        ]
+      }
+    ]
+  },
+
   pensa: {
     pensumA: {
       titulus: "PĒNSVM A (Capitulum II)",
@@ -6682,7 +6740,8 @@ export const capitulumSecundum = {
           lacuna: "ī",
           inter: " est. Iūlia fīlia Aemili",
           lacuna2: "ae",
-          suffix: " est."
+          suffix: " est.",
+          explicatio: "Genetīvus singulāris: Iūliī (masculīnum -ī), Aemiliae (fēminīnum -ae)."
         },
         {
           id: "p2a_2",
@@ -6690,7 +6749,8 @@ export const capitulumSecundum = {
           lacuna: "ī",
           inter: " et Quīnt",
           lacuna2: "ī",
-          suffix: " et Iūliae."
+          suffix: " et Iūliae.",
+          explicatio: "Genetīvus singulāris masculīnus (-ī): Mārcī, Quīntī."
         },
         {
           id: "p2a_3",
@@ -6698,7 +6758,8 @@ export const capitulumSecundum = {
           lacuna: "ae",
           inter: " et Quīnt",
           lacuna2: "ī",
-          suffix: "."
+          suffix: ".",
+          explicatio: "Genetīvus singulāris: Iūliae (fēminīnum -ae), Quīntī (masculīnum -ī)."
         },
         {
           id: "p2a_4",
@@ -6706,7 +6767,8 @@ export const capitulumSecundum = {
           lacuna: "ōrum",
           inter: " serv",
           lacuna2: "ōrum",
-          suffix: "."
+          suffix: ".",
+          explicatio: "Genetīvus plūrālis masculīnus (-ōrum): multōrum servōrum."
         },
         {
           id: "p2a_5",
@@ -6714,7 +6776,8 @@ export const capitulumSecundum = {
           lacuna: "ārum",
           inter: " ancill",
           lacuna2: "ārum",
-          suffix: "."
+          suffix: ".",
+          explicatio: "Genetīvus plūrālis fēminīnus (-ārum): multārum ancillārum."
         },
         {
           id: "p2a_6",
@@ -6722,7 +6785,8 @@ export const capitulumSecundum = {
           lacuna: "ōrum",
           inter: " in familiā parvus est; numerus serv",
           lacuna2: "ōrum",
-          suffix: " magnus est."
+          suffix: " magnus est.",
+          explicatio: "Genetīvus plūrālis: liberōrum, servōrum (-ōrum)."
         },
         {
           id: "p2a_7",
@@ -6730,7 +6794,8 @@ export const capitulumSecundum = {
           lacuna: "ī",
           inter: " tu",
           lacuna2: "ī",
-          suffix: " est 'Lingua Latina'."
+          suffix: " est 'Lingua Latina'.",
+          explicatio: "Genetīvus singulāris masculīnus (-ī): librī tuī."
         },
         {
           id: "p2a_8",
@@ -6738,7 +6803,8 @@ export const capitulumSecundum = {
           lacuna: "ī",
           inter: "; Syra et Dēlia sunt ancillae Aemili",
           lacuna2: "ae",
-          suffix: "."
+          suffix: ".",
+          explicatio: "Genetīvus singulāris: servī Iūliī (-ī), ancillae Aemiliae (-ae)."
         }
       ]
     },
@@ -6751,55 +6817,64 @@ export const capitulumSecundum = {
           id: "p2b_1",
           praefix: "Iūlius ",
           lacuna: "vir",
-          suffix: " Rōmānus est; Aemilia est fēmina."
+          suffix: " Rōmānus est; Aemilia est fēmina.",
+          explicatio: "Nōmen masculīnum in -r: vir (↔ fēmina)."
         },
         {
           id: "p2b_2",
           praefix: "Mārcus et Quīntus sunt ",
           lacuna: "puerī",
-          suffix: "; Iūlia est puella."
+          suffix: "; Iūlia est puella.",
+          explicatio: "Nōminātīvus plūrālis masculīnus: puerī (↔ puella)."
         },
         {
           id: "p2b_3",
           praefix: "Iūlius est ",
           lacuna: "pater",
-          suffix: ", Aemilia est māter."
+          suffix: ", Aemilia est māter.",
+          explicatio: "Nōmen masculīnum: pater (↔ māter)."
         },
         {
           id: "p2b_4",
           praefix: "Mārcus, Quīntus Iūlia",
           lacuna: "que",
-          suffix: " sunt trēs līberī."
+          suffix: " sunt trēs līberī.",
+          explicatio: "Particula enclitica copulātīva (= et Iūlia): -que."
         },
         {
           id: "p2b_5",
           praefix: "Dāvus est ",
           lacuna: "servus",
-          suffix: "; Syra est ancilla."
+          suffix: "; Syra est ancilla.",
+          explicatio: "Nōmen masculīnum: servus (↔ ancilla)."
         },
         {
           id: "p2b_6",
           praefix: "Iūlius est ",
           lacuna: "dominus",
-          suffix: " servōrum."
+          suffix: " servōrum.",
+          explicatio: "Nōmen masculīnum: dominus (qui servōs habet)."
         },
         {
           id: "p2b_7",
           praefix: "",
           lacuna: "Cuius",
-          suffix: " servus est Mēdus? Iūliī."
+          suffix: " servus est Mēdus? Iūliī.",
+          explicatio: "Prōnōmen interrogātīvum genetīvī (Cuius? = quis dominus est?): Cuius."
         },
         {
           id: "p2b_8",
           praefix: "",
           lacuna: "Quot",
-          suffix: " servī sunt in familiā? Centum."
+          suffix: " servī sunt in familiā? Centum.",
+          explicatio: "Adiectīvum interrogātīvum indeclīnābile quantitātis: Quot."
         },
         {
           id: "p2b_9",
           praefix: "In librō tuō sunt multae ",
           lacuna: "pāginae",
-          suffix: "."
+          suffix: ".",
+          explicatio: "Nōminātīvus plūrālis fēminīnus cum macrōne ā: pāginae."
         }
       ]
     },

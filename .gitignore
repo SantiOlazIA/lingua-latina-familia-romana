@@ -14,3 +14,8 @@ desktop.ini
 
 # Logs
 *.log
+
+.vercel
+
+# Scratch files
+scratch_*.txt
