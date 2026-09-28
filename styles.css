@@ -123,6 +123,53 @@ body {
   background: var(--bg-card-hover);
 }
 
+.color-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 0.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-popover);
+  border-radius: 2px;
+  width: 220px;
+  display: none;
+  z-index: 50;
+  flex-direction: column;
+}
+
+.color-dropdown.open {
+  display: flex;
+}
+
+.color-opt-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 0.85rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-align: left;
+  color: var(--ink-primary);
+  cursor: pointer;
+  transition: all 0.12s ease;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.color-opt-btn:last-child {
+  border-bottom: none;
+}
+
+.color-opt-btn:hover {
+  background: var(--bg-card-hover);
+  color: var(--rubrum-romanum);
+}
+
+.color-opt-btn.active {
+  font-weight: 700;
+  color: var(--rubrum-romanum);
+  background: var(--bg-page);
+}
+
 
 
 /* Notitia Clāvium Macrōnum */

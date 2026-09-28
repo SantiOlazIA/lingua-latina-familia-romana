@@ -31,6 +31,21 @@
     </div>
 
     <div class="nav-controls">
+      <!-- Collūstrātiō Cāsuum (Highlighter) -->
+      <div class="highlighter-wrapper" style="position:relative;">
+        <button class="btn-ancient" id="btn-toggle-colors" title="Collūstrātiō cāsuum">
+          🎨 <span id="current-color-label">COLŌRĒS</span>
+        </button>
+        <div class="color-dropdown" id="color-dropdown">
+          <button class="color-opt-btn active" data-color="null">Nihil (Ordinārium)</button>
+          <button class="color-opt-btn" data-color="nominativus">Nōminātīvus (Subiectum)</button>
+          <button class="color-opt-btn" data-color="genetivus">Genetīvus (Cuius?)</button>
+          <button class="color-opt-btn" data-color="ablativus">Ablātīvus (Locī)</button>
+          <button class="color-opt-btn" data-color="verbum">Verba</button>
+          <button class="color-opt-btn" data-color="totum">Tōtum (Omnēs Colōrēs)</button>
+        </div>
+      </div>
+
       <span class="nav-hotkey-notice" title="Vōcālēs longae: Alt + a, e, i, o, u aut a=, a-">⌨ Vōcālēs: Alt + a, e, i, o, u</span>
       <button class="btn-ancient" id="btn-jump-pensa">
         ⬇ AD PĒNSA
