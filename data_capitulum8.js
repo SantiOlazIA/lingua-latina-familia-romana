@@ -16860,14 +16860,38 @@ export const capitulumOctavum = {
         ]
       },
       {
-        "titulusPars": "II. Prōnōmen Relātīvum et Interrogātīvum in omnibus cāsibus",
-        "regula": "Prōnōmen relātīvum (quī, quae, quod) concordat cum antecedente in genere et numerō; cāsus autem pender a mūnere suō in sententiā.",
+        "titulusPars": "II. Prōnōmen Relātīvum, Dēmōnstrātīvum, et Interrogātīvum",
+        "regula": "Prōnōmen relātīvum (quī, quae, quod) concordat cum antecedente in genere et numerō; cāsus autem pendet a mūnere suō in sententiā.",
         "exempla": [
           "Quī tabernam habet tabernārius est (quī = subiectum masculīnum).",
           "Servus quem Iūlius vocat est Syrus (quem = accūsātīvus obiectī).",
           "Servus cuius dominus Iūlius est (cuius = genetīvus possessiōnis).",
           "Servus cui Iūlius mālum dat (cui = datīvus persōnae cui datur).",
           "Servus ā quō saccus portātur (quō = ablātīvus agentis cum 'ā')."
+        ],
+        "tabulae": [
+          {
+            "titulus": "Prōnōmina (Singulāris: Masculīnum)",
+            "capita": ["CASUS", "INTERROGĀTĪVUM / RELĀTĪVUM", "DĒMŌNSTRĀTĪVUM (is)", "DĒMŌNSTRĀTĪVUM (ille)"],
+            "ordines": [
+              ["Nōminātīvus", "quis / quī", "is", "ille"],
+              ["Accūsātīvus", "quem", "eum", "illum"],
+              ["Genetīvus", "cuius", "eius", "illīus"],
+              ["Datīvus", "cui", "eī", "illī"],
+              ["Ablātīvus", "quō", "eō", "illō"]
+            ]
+          },
+          {
+            "titulus": "Prōnōmina (Plūrālis: Masculīnum)",
+            "capita": ["CASUS", "RELĀTĪVUM", "DĒMŌNSTRĀTĪVUM (is)", "DĒMŌNSTRĀTĪVUM (ille)"],
+            "ordines": [
+              ["Nōminātīvus", "quī", "iī (eī)", "illī"],
+              ["Accūsātīvus", "quōs", "eōs", "illōs"],
+              ["Genetīvus", "quōrum", "eōrum", "illōrum"],
+              ["Datīvus", "quibus", "iīs (eīs)", "illīs"],
+              ["Ablātīvus", "quibus", "iīs (eīs)", "illīs"]
+            ]
+          }
         ]
       }
     ]

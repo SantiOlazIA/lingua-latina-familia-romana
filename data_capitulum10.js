@@ -10987,18 +10987,80 @@ export const capitulumDecimum = {
     "subtitulus": "Īnfīnītīvus āctīvī et passīvī; Dēclīnātiō tertia (leō, homō, vōx, pēs)",
     "partes": [
       {
-        "titulusPars": "I. Īnfīnītīvus Āctīvī et Passīvī",
-        "regula": "Īnfīnītīvus āctīvī exit in -re (vocāre, vidēre, pōnere, audīre). Īnfīnītīvus passīvī exit in -rī in coniugātiōnibus I, II, IV (vocārī, vidērī, audīrī), at in coniugātiōne III exit in -ī (pōnī, emī, legī, edī).",
-        "exempla": [
-          "Āctīvum: Pāstor Quīntum portāre potest; Mārcus canem audīre potest.",
-          "Passīvum: Quīntus ā pāstōre portārī potest; canis audīrī potest.",
-          "Coniugātiō III: Cibus emī potest; gemmae edī nōn possunt."
+        "sectio": "I. [A] Īnfīnītīvus Āctīvī (-re)",
+        "exemplaSententiarum": [
+          { "sg": "Iūlius Mārcum nōn vidēre, sed audīre potest.", "pl": "Pater fīlium vocāre audit, et accurrere videt." }
+        ],
+        "regula": "'Vocāre', 'vidēre', 'accurrere', 'audīre' īnfīnītīvus est. Terminātiō īnfīnītīvī āctīvī: -re.",
+        "coniugationes": [
+          {
+            "titulus": "[1] -āre",
+            "verba": "cantāre, pulsāre, plōrāre, interrogāre, verberāre, numerāre, salūtāre, imperāre, habitāre, amāre, dēlectāre, portāre, ambulāre, exspectāre, intrāre, ōrnāre, clāmāre, mōnstrāre, errāre, volāre, natāre, spīrāre; dare; cēt."
+          },
+          {
+            "titulus": "[2] -ēre",
+            "verba": "rīdēre, vidēre, respondēre, habēre, tacēre, pārēre, timēre, tenēre, iacēre, movēre, cēt."
+          },
+          {
+            "titulus": "[3] -ere",
+            "verba": "pōnere, sūmere, discēdere, carpere, agere, vehere, claudere, vertere, currere, vēndere, emere, cōnsistere, ostendere, bibere, petere, dūcere, relinquere, quaerere, vīvere, lūdere, canere, ascendere, cadere; capere, facere, aspicere, accipere, parere; cēt."
+          },
+          {
+            "titulus": "[4] -īre",
+            "verba": "venīre, audīre, dormīre, aperīre, reperīre; īre (ad-īre, ab-īre, ex-īre); cēt."
+          }
+        ],
+        "nota": "Mēdus servus esse nōn vult. Nēmō gemmās ēsse potest. 'Esse' quoque et 'ēsse' īnfīnītīvus est."
+      },
+      {
+        "sectio": "I. [B] Īnfīnītīvus Passīvī (-rī / -ī)",
+        "exemplaSententiarum": [
+          { "sg": "Mārcus ā Iūliō nōn vidērī, sed audīrī potest.", "pl": "Mārcus Quīntum ā Iūliō portārī et in lectō pōnī videt." }
+        ],
+        "regula": "'Portārī', 'vidērī', 'pōnī', 'audīrī' īnfīnītīvus passīvī est. Terminātiōnēs īnfīnītīvī passīvī: -rī / -ī.",
+        "coniugationes": [
+          { "titulus": "[1] -ārī", "verba": "portārī, numerārī, vocārī." },
+          { "titulus": "[2] -ērī", "verba": "vidērī, tenērī." },
+          { "titulus": "[3] -ī", "verba": "pōnī, emī, edī, claudī." },
+          { "titulus": "[4] -īrī", "verba": "audīrī, reperīrī, aperīrī." }
+        ],
+        "sententiae": [
+          "Piscēs numerārī nōn possunt.",
+          "Syra rosam ā Iūliā tenērī videt (= Syra Iūliam rosam tenēre videt).",
+          "Gemmae edī nōn possunt.",
+          "Magnum ōstium ā parvā puellā neque aperīrī neque claudī potest (= parva puella magnum ōstium neque aperīre neque claudere potest)."
         ]
       },
       {
-        "titulusPars": "II. Dēclīnātiō tertia: Leō, homō, vōx, pēs",
-        "regula": "Substantīva tertiae dēclīnātiōnis cum themate in nasālem vel dentālem: leō (leōnis), homō (hominis), vōx (vōcis < *vōcs), pēs (pedis < *peds). Genetīvus singulāris semper in -is exit.",
-        "exempla": [
+        "sectio": "II. Dēclīnātiō tertia: Leō, homō, vōx, pēs",
+        "regula": "'Avis' (f.) et 'piscis' (m.) dēclīnantur ut 'ovis'. Ut 'pāstor' dēclīnātur 'mercātor' (m.). Substantīva tertiae dēclīnātiōnis cum themate in consonantem habent genetīvum singulārem in -is.",
+        "tabulae": [
+          {
+            "titulus": "'Leō' (m.) et 'homō' (m.) dēclīnantur hōc modō:",
+            "capita": ["CASUS", "leō (Sing.)", "leōnēs (Plūr.)", "homō (Sing.)", "hominēs (Plūr.)"],
+            "ordines": [
+              ["Nōminātīvus", "leō", "leōn|ēs", "homō", "homin|ēs"],
+              ["Accūsātīvus", "leōn|em", "leōn|ēs", "homin|em", "homin|ēs"],
+              ["Genetīvus", "leōn|is", "leōn|um", "homin|is", "homin|um"],
+              ["Datīvus", "leōn|ī", "leōn|ibus", "homin|ī", "homin|ibus"],
+              ["Ablātīvus", "leōn|e", "leōn|ibus", "homin|e", "homin|ibus"]
+            ],
+            "nota": "leō < *leōn"
+          },
+          {
+            "titulus": "'Vōx' (f.) et 'pēs' (m.) dēclīnantur hōc modō:",
+            "capita": ["CASUS", "vōx (Sing.)", "vōcēs (Plūr.)", "pēs (Sing.)", "pedēs (Plūr.)"],
+            "ordines": [
+              ["Nōminātīvus", "vōx", "vōc|ēs", "pēs", "ped|ēs"],
+              ["Accūsātīvus", "vōc|em", "vōc|ēs", "ped|em", "ped|ēs"],
+              ["Genetīvus", "vōc|is", "vōc|um", "ped|is", "ped|um"],
+              ["Datīvus", "vōc|ī", "vōc|ibus", "ped|ī", "ped|ibus"],
+              ["Ablātīvus", "vōc|e", "vōc|ibus", "ped|e", "ped|ibus"]
+            ],
+            "nota": "vōx < *vōcs, pēs < *peds. (Neutra in -e / -al: 'mare', 'animal' (n.): vidē cap. XI)."
+          }
+        ],
+        "sententiae": [
           "Leō (nōm. sg.) fera bēstia est; pāstor leōnem (acc. sg.) timet; Āfrica plēna leōnum (gen. pl.) est.",
           "Homō (nōm. sg.) duōs pedēs habet; spīrāre necesse est hominī (dat. sg.).",
           "Iūlia vōcem (acc. sg.) pulchram habet; homō duōbus pedibus (abl. pl.) ambulat."

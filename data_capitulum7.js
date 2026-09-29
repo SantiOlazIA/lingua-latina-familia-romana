@@ -7917,6 +7917,17 @@ export const capitulumSeptimum = {
         "exempla": [
           "Puella laeta mālō suō ōsculum dat.",
           "Fluvius oppidō aquam dat."
+        ],
+        "tabulae": [
+          {
+            "titulus": "Fōrmae Datīvī (Masculīnum, Fēminīnum, Neutrum)",
+            "capita": ["CASUS", "MASCULĪNUM", "FĒMINĪNUM", "NEUTRUM"],
+            "ordines": [
+              ["Singulāris (Nōm. / Dat.)", "servus → servō", "ancilla → ancillae", "oppidum → oppidō"],
+              ["Plūrālis (Nōm. / Dat.)", "servī → servīs", "ancillae → ancillīs", "oppida → oppidīs"]
+            ],
+            "nota": "Terminātiōnēs Datīvī: sing. -ō / -ae / -ō; plūr. -īs (in omnibus generibus)."
+          }
         ]
       }
     ]

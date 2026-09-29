@@ -172,18 +172,7 @@ body {
 
 
 
-/* Notitia Clāvium Macrōnum */
-.nav-hotkey-notice {
-  font-family: var(--font-heading);
-  font-size: 0.78rem;
-  letter-spacing: 0.08em;
-  color: var(--ink-muted);
-  user-select: none;
-  background: var(--bg-card);
-  padding: 0.3rem 0.65rem;
-  border: 1px solid var(--border-medium);
-  border-radius: 2px;
-}
+
 
 .pensa-monitio {
   background: var(--bg-card);
@@ -321,6 +310,10 @@ kbd {
   padding-left: 0.75rem;
   border-left: 2px solid var(--border-medium);
   user-select: none;
+}
+
+.verse-marginalia:empty {
+  display: none;
 }
 
 /* Verba Interactīva (Hover Tokens) */
@@ -476,6 +469,7 @@ kbd {
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .lateral-drawer.open {
@@ -530,6 +524,7 @@ kbd {
 .drawer-content {
   flex-grow: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 1.25rem 1.4rem;
 }
 
@@ -582,17 +577,20 @@ kbd {
   margin-bottom: 1rem;
 }
 
-  margin-bottom: 1rem;
-}
-
 /* Navigātiō Superior Vocābulāriī */
 .vocab-nav-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
   padding: 0.4rem 0.2rem 0.6rem 0.2rem;
   border-bottom: 1px solid var(--border-medium);
   margin-bottom: 0.8rem;
+}
+
+#btn-vocab-home {
+  margin-right: auto;
+  flex-shrink: 0;
 }
 
 .vocab-current-view-title {
@@ -659,8 +657,22 @@ kbd {
 /* Sub-filtra et Chips in Summō */
 .vocab-subfilters {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
   margin-bottom: 0.75rem;
+}
+
+#vocab-cap-subfilters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+#vocab-cap-subfilters .vocab-sub-btn {
+  flex: 0 0 calc(20% - 0.35rem);
+  text-align: center;
+  padding: 0.35rem 0.2rem;
 }
 
 .vocab-chips-scroll {
@@ -854,6 +866,46 @@ kbd {
   margin-top: 0.5rem;
   padding-top: 0.5rem;
   border-top: 1px dashed var(--border-subtle);
+}
+
+.grammatica-subtable-container {
+  margin: 1.2rem 0;
+  background: var(--bg-page);
+  border: 1px solid var(--border-subtle);
+  padding: 0.9rem 1.1rem;
+  border-radius: 2px;
+  overflow-x: auto;
+}
+
+.grammatica-table-title {
+  font-family: var(--font-heading);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--rubrum-romanum);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.04em;
+}
+
+.grammatica-coniugatio-block {
+  margin: 0.8rem 0;
+  padding: 0.6rem 0.9rem;
+  background: var(--bg-card);
+  border-left: 3px solid var(--border-medium);
+  border-radius: 2px;
+}
+
+.grammatica-coniugatio-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--rubrum-romanum);
+  margin-bottom: 0.25rem;
+}
+
+.grammatica-coniugatio-words {
+  font-size: 0.98rem;
+  color: var(--ink-secondary);
+  line-height: 1.55;
 }
 
 /* Area Pēnsōrum */
@@ -1201,9 +1253,6 @@ kbd {
   }
   .nav-brand {
     font-size: 1rem;
-  }
-  .nav-hotkey-notice {
-    display: none; /* Hide hotkey hint on touch / narrow screens */
   }
   .chapter-select {
     font-size: 0.78rem;

@@ -93,7 +93,7 @@ function renderCapitulum() {
 
       html += `
           </div>
-          <div class="verse-marginalia">${v.marginalia || ''}</div>
+          ${v.marginalia && v.marginalia.trim() ? `<div class="verse-marginalia">${v.marginalia}</div>` : ''}
         </div>
       `;
     });
@@ -165,14 +165,15 @@ function renderGrammaticaLatina() {
   let html = '';
   g.partes.forEach((pars) => {
     html += `<div class="grammatica-card">`;
-    if (pars.sectio) {
-      html += `<div class="grammatica-card-title">${pars.sectio}</div>`;
+    const title = pars.sectio || pars.titulusPars || pars.titulus;
+    if (title) {
+      html += `<div class="grammatica-card-title">${title}</div>`;
     }
     if (pars.subsectio) {
       html += `<div style="font-family:var(--font-heading); font-weight:600; color:var(--rubrum-romanum); margin-bottom:0.4rem;">${pars.subsectio}</div>`;
     }
 
-    // Exempla Sententiarum (Tabula Singularis / Pluralis)
+    // Exempla Sententiarum (Tabula Singularis / Pluralis - Cap 1-6)
     if (pars.exemplaSententiarum && pars.exemplaSententiarum.length > 0) {
       html += `
         <table class="grammatica-table">
@@ -200,10 +201,50 @@ function renderGrammaticaLatina() {
       html += `<div class="grammatica-regula">${pars.regula}</div>`;
     }
 
-    // Sententiae exemplares
-    if (pars.sententiae && pars.sententiae.length > 0) {
+    // Coniugātiōnēs / Gruppī morphologicī
+    if (pars.coniugationes && pars.coniugationes.length > 0) {
+      pars.coniugationes.forEach((cj) => {
+        html += `
+          <div class="grammatica-coniugatio-block">
+            <div class="grammatica-coniugatio-title">${cj.titulus}</div>
+            <div class="grammatica-coniugatio-words">${cj.verba}</div>
+          </div>
+        `;
+      });
+    }
+
+    // Tabulae Morphologicae (Declinātiōnēs, Prōnōmina, etc.)
+    if (pars.tabulae && pars.tabulae.length > 0) {
+      pars.tabulae.forEach((tab) => {
+        html += `<div class="grammatica-subtable-container">`;
+        if (tab.titulus) {
+          html += `<div class="grammatica-table-title">${tab.titulus}</div>`;
+        }
+        html += `<table class="grammatica-table"><thead><tr>`;
+        (tab.capita || []).forEach(col => {
+          html += `<th>${col}</th>`;
+        });
+        html += `</tr></thead><tbody>`;
+        (tab.ordines || []).forEach(row => {
+          html += `<tr>`;
+          row.forEach(cell => {
+            html += `<td>${cell}</td>`;
+          });
+          html += `</tr>`;
+        });
+        html += `</tbody></table>`;
+        if (tab.nota) {
+          html += `<div class="grammatica-vocab-note">${tab.nota}</div>`;
+        }
+        html += `</div>`;
+      });
+    }
+
+    // Sententiae exemplares (sententiae vel exempla)
+    const sentList = pars.sententiae || pars.exempla;
+    if (sentList && sentList.length > 0) {
       html += `<ul class="grammatica-exempla-list">`;
-      pars.sententiae.forEach((s) => {
+      sentList.forEach((s) => {
         html += `<li>${s}</li>`;
       });
       html += `</ul>`;
@@ -212,6 +253,11 @@ function renderGrammaticaLatina() {
     // Vocabula exemplaria
     if (pars.exemplaVocabulorum) {
       html += `<div class="grammatica-vocab-note"><strong>Exempla vocābulōrum:</strong> ${pars.exemplaVocabulorum.replace(/\\n/g, '<br>')}</div>`;
+    }
+
+    // Nota finalis
+    if (pars.nota) {
+      html += `<div class="grammatica-vocab-note">${pars.nota}</div>`;
     }
 
     html += `</div>`;

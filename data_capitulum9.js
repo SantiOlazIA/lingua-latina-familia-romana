@@ -7849,6 +7849,20 @@ export const capitulumNonum = {
       {
         "titulusPars": "II. Dēclīnātiō tertia: Nōmina parisyllaba in -is (ovis)",
         "regula": "Substantīva parisyllaba (ovis, canis, vallis, collis, pānis, nūbēs) et biconsonantica (mōns, dēns) habent accūsātīvum sing. in -em, genetīvum plūrālem plērumque in -ium (sed canum, pānum).",
+        "tabulae": [
+          {
+            "titulus": "Dēclīnātiō tertia: pāstor (m.) et ovis (f.)",
+            "capita": ["CASUS", "pāstor (Sing.)", "pāstōrēs (Plūr.)", "ovis (Sing.)", "ovēs (Plūr.)"],
+            "ordines": [
+              ["Nōminātīvus", "pāstor", "pāstōr|ēs", "ovis", "ov|ēs"],
+              ["Accūsātīvus", "pāstōr|em", "pāstōr|ēs", "ov|em", "ov|ēs"],
+              ["Genetīvus", "pāstōr|is", "pāstōr|um", "ov|is", "ov|ium"],
+              ["Datīvus", "pāstōr|ī", "pāstōr|ibus", "ov|ī", "ov|ibus"],
+              ["Ablātīvus", "pāstōr|e", "pāstōr|ibus", "ov|e", "ov|ibus"]
+            ],
+            "nota": "Ut 'pāstor' dēclīnantur: sōl, timor, clāmor, arbor (f.). Ut 'ovis': pānis, collis, vallis, canis (gen. pl. canum), nūbēs, mōns, dēns."
+          }
+        ],
         "exempla": [
           "Ūna ovis (nōm. sg.) nigra; pāstor ūnam ovem (acc. sg.) nigram habet.",
           "Dominus ovis (gen. sg.) nigrae; pāstor ovī (dat. sg.) aquam dat.",
