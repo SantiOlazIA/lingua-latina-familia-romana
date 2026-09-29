@@ -1194,6 +1194,26 @@ kbd {
 
 /* Responsīvum (Screen adaptations) */
 @media (max-width: 800px) {
+  .top-nav {
+    padding: 0.5rem 0.75rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .nav-brand {
+    font-size: 1rem;
+  }
+  .nav-hotkey-notice {
+    display: none; /* Hide hotkey hint on touch / narrow screens */
+  }
+  .chapter-select {
+    font-size: 0.78rem;
+    padding: 0.3rem 0.5rem;
+    max-width: 160px;
+  }
+  .page-container {
+    padding: 0 0.5rem;
+    margin: 1rem auto;
+  }
   .book-page {
     padding: 2rem 1.25rem;
   }
@@ -1205,6 +1225,61 @@ kbd {
     padding-right: 0.5rem;
   }
   .pensum-panel {
-    padding: 1.25rem 1rem;
+    padding: 1.25rem 0.85rem;
+  }
+  .cloze-row {
+    font-size: 1.05rem;
+    line-height: 2.1;
+  }
+  .cloze-input {
+    font-size: 1.05rem;
+    min-width: 65px;
+    width: auto;
+    max-width: 120px;
+    padding: 0.05rem 0.2rem;
+  }
+  .cloze-feedback-line {
+    margin-left: 0;
+    font-size: 0.85rem;
+  }
+  .pensa-nav {
+    flex-wrap: wrap;
+  }
+  .pensum-tab-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-nav {
+    padding: 0.4rem 0.5rem;
+  }
+  .nav-controls {
+    gap: 0.4rem;
+  }
+  .btn-ancient {
+    padding: 0.3rem 0.5rem;
+    font-size: 0.78rem;
+  }
+  .chapter-header h1 {
+    font-size: 1.4rem;
+  }
+  .chapter-header h2 {
+    font-size: 1.05rem;
+  }
+  .cloze-row {
+    font-size: 1rem;
+    line-height: 2.2;
+  }
+  .cloze-input {
+    font-size: 1rem;
+    min-width: 55px;
+  }
+  .interrogatio-card {
+    padding: 1rem 0.75rem;
+  }
+  .interrogatio-input {
+    font-size: 1rem;
   }
 }
