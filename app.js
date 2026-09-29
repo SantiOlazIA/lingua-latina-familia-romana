@@ -10,6 +10,8 @@ import { capitulumQuintum } from './data_capitulum5.js';
 import { capitulumSextum } from './data_capitulum6.js';
 import { capitulumSeptimum } from './data_capitulum7.js';
 import { capitulumOctavum } from './data_capitulum8.js';
+import { capitulumNonum } from './data_capitulum9.js';
+import { capitulumDecimum } from './data_capitulum10.js';
 
 // Dāta capitulōrum
 const capitula = {
@@ -20,7 +22,9 @@ const capitula = {
   5: capitulumQuintum,
   6: capitulumSextum,
   7: capitulumSeptimum,
-  8: capitulumOctavum
+  8: capitulumOctavum,
+  9: capitulumNonum,
+  10: capitulumDecimum
 };
 
 // Statūs globālēs
