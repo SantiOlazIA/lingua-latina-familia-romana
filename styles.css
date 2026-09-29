@@ -213,7 +213,7 @@ kbd {
 
 /* Structura Pāginae */
 .page-container {
-  max-width: 960px;
+  max-width: 780px;
   margin: 2rem auto;
   padding: 0 1rem;
 }
@@ -222,7 +222,7 @@ kbd {
   background: var(--bg-page);
   border: 1px solid var(--border-subtle);
   box-shadow: var(--shadow-book);
-  padding: 3.5rem 3.5rem 4rem 3.5rem;
+  padding: 3rem 2.8rem 3.5rem 2.8rem;
   position: relative;
   border-radius: 1px;
 }
@@ -276,19 +276,20 @@ kbd {
 /* Versūs et Margo */
 .verse-row {
   display: flex;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.95rem;
   position: relative;
   align-items: baseline;
 }
 
 .verse-num {
-  width: 42px;
+  width: 38px;
   flex-shrink: 0;
   font-family: var(--font-heading);
   font-size: 0.85rem;
   color: var(--ink-muted);
   text-align: right;
-  padding-right: 1.25rem;
+  padding-right: 1rem;
   user-select: none;
   font-weight: 600;
 }
@@ -300,9 +301,9 @@ kbd {
 }
 
 .verse-marginalia {
-  width: 170px;
+  width: 165px;
   flex-shrink: 0;
-  margin-left: 1.5rem;
+  margin-left: 1.25rem;
   font-size: 0.88rem;
   color: var(--ink-secondary);
   font-style: italic;
@@ -1264,14 +1265,35 @@ kbd {
     margin: 1rem auto;
   }
   .book-page {
-    padding: 2rem 1.25rem;
+    padding: 1.85rem 1.15rem;
   }
-  .verse-marginalia {
-    display: none; /* Hide wide margin notes on small screens; accessible via click/hover */
+  .verse-row {
+    margin-bottom: 1.05rem;
   }
   .verse-num {
-    width: 28px;
-    padding-right: 0.5rem;
+    width: 26px;
+    padding-right: 0.4rem;
+    font-size: 0.75rem;
+  }
+  .verse-text {
+    font-size: 1.12rem;
+    line-height: 1.75;
+  }
+  .verse-marginalia {
+    display: block;
+    width: 100%;
+    margin-left: 26px;
+    margin-top: 0.35rem;
+    margin-bottom: 0.25rem;
+    padding: 0.25rem 0.65rem;
+    border-left: 3px solid var(--rubrum-romanum);
+    background: #F4EFE6;
+    border-radius: 2px;
+    font-size: 0.84rem;
+    line-height: 1.4;
+  }
+  .verse-marginalia:empty {
+    display: none;
   }
   .pensum-panel {
     padding: 1.25rem 0.85rem;
