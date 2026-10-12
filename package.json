@@ -1,0 +1,9 @@
+﻿{
+  "name": "lingua-latina-familia-romana",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test"
+  }
+}
+

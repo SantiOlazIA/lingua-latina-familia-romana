@@ -2,34 +2,47 @@
 // Rēctor Interfacieī et Logica Interactīva (ES Module)
 // Lingua Latina per sē Illustrata: Capitula I & II
 
-import { capitulumPrimum } from './data_capitulum1.js';
-import { capitulumSecundum } from './data_capitulum2.js';
-import { capitulumTertium } from './data_capitulum3.js';
-import { capitulumQuartum } from './data_capitulum4.js';
-import { capitulumQuintum } from './data_capitulum5.js';
-import { capitulumSextum } from './data_capitulum6.js';
-import { capitulumSeptimum } from './data_capitulum7.js';
-import { capitulumOctavum } from './data_capitulum8.js';
-import { capitulumNonum } from './data_capitulum9.js';
-import { capitulumDecimum } from './data_capitulum10.js';
+import { comparaResponsum } from './lib/comparatio.js';
 
-// Dāta capitulōrum
-const capitula = {
-  1: capitulumPrimum,
-  2: capitulumSecundum,
-  3: capitulumTertium,
-  4: capitulumQuartum,
-  5: capitulumQuintum,
-  6: capitulumSextum,
-  7: capitulumSeptimum,
-  8: capitulumOctavum,
-  9: capitulumNonum,
-  10: capitulumDecimum
+// Onerātiō pigra capitulōrum: tantum capitulum necessārium importātur.
+const CAPITULA_MODULI = {
+  1:  { file: './data_capitulum1.js',  nomen: 'capitulumPrimum' },
+  2:  { file: './data_capitulum2.js',  nomen: 'capitulumSecundum' },
+  3:  { file: './data_capitulum3.js',  nomen: 'capitulumTertium' },
+  4:  { file: './data_capitulum4.js',  nomen: 'capitulumQuartum' },
+  5:  { file: './data_capitulum5.js',  nomen: 'capitulumQuintum' },
+  6:  { file: './data_capitulum6.js',  nomen: 'capitulumSextum' },
+  7:  { file: './data_capitulum7.js',  nomen: 'capitulumSeptimum' },
+  8:  { file: './data_capitulum8.js',  nomen: 'capitulumOctavum' },
+  9:  { file: './data_capitulum9.js',  nomen: 'capitulumNonum' },
+  10: { file: './data_capitulum10.js', nomen: 'capitulumDecimum' }
 };
+
+// Cella capitulōrum iam onustōrum (num -> data) et promissa pendentia.
+const capitula = {};
+const capitulaPromissa = {};
+
+function onusCapitulum(num) {
+  const n = parseInt(num, 10);
+  if (capitula[n]) return Promise.resolve(capitula[n]);
+  const def = CAPITULA_MODULI[n];
+  if (!def) return Promise.resolve(null);
+  if (!capitulaPromissa[n]) {
+    capitulaPromissa[n] = import(def.file)
+      .then((mod) => { capitula[n] = mod[def.nomen]; return capitula[n]; })
+      .catch((err) => { delete capitulaPromissa[n]; throw err; });
+  }
+  return capitulaPromissa[n];
+}
+
+function onusOmniaCapitula() {
+  return Promise.all(Object.keys(CAPITULA_MODULI).map(onusCapitulum));
+}
 
 // Statūs globālēs
 let currentChapterNum = 1;
-let currentChapter = capitulumPrimum;
+let currentChapter = null;
+let currentTokens = []; // tokens capitulī currentis (index = data-i)
 let pinnedToken = null;
 let activeInputElement = null;
 let currentColorMode = null; // 'nominativus', 'genetivus', 'ablativus', 'verbum', 'totum', or null
@@ -46,10 +59,25 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // 1. Mūtātiō Capitulī (Chapter Loader)
-function loadChapter(num) {
-  if (!capitula[num]) return;
-  currentChapterNum = parseInt(num, 10);
-  currentChapter = capitula[currentChapterNum];
+let loadSeq = 0;
+async function loadChapter(num) {
+  const n = parseInt(num, 10);
+  if (!CAPITULA_MODULI[n]) return;
+  const seq = ++loadSeq;
+  let data;
+  try {
+    data = await onusCapitulum(n);
+  } catch (err) {
+    const c = document.getElementById('textus-container');
+    if (c) c.innerHTML = '<p style="font-style:italic; color:#8B1E1E;">Errōr: capitulum onerārī nōn potest. Iterum temptā.</p>';
+    return;
+  }
+  if (seq !== loadSeq || !data) return; // alia petitiō recentior
+  currentChapterNum = n;
+  currentChapter = data;
+  const sel = document.getElementById('chapter-select');
+  if (sel && sel.value !== String(n)) sel.value = String(n);
+
 
   // Pāgina tituli
   document.getElementById('page-chapter-num').textContent = currentChapter.titulus;
@@ -73,6 +101,7 @@ function renderCapitulum() {
   if (!container) return;
 
   let html = '';
+  currentTokens = [];
 
   currentChapter.sectiones.forEach((sectio) => {
     html += `<div class="section-header">${sectio.titulusSectio}</div>`;
@@ -85,10 +114,10 @@ function renderCapitulum() {
       `;
 
       v.tokens.forEach((tok) => {
-        const tokData = encodeURIComponent(JSON.stringify(tok));
+        const idx = currentTokens.push(tok) - 1;
         const lead = tok.lead || '';
         const punc = tok.punc || '';
-        html += `${lead}<span class="latin-token" data-token="${tokData}">${tok.f}</span>${punc} `;
+        html += `${lead}<span class="latin-token" data-i="${idx}">${tok.f}</span>${punc} `;
       });
 
       html += `
@@ -356,9 +385,21 @@ function switchVocabView(mode, titleText = '') {
   renderVocabularium(searchInput?.value || '');
 }
 
-function renderVocabularium(filterQuery = '') {
+let vocabRenderSeq = 0;
+async function renderVocabularium(filterQuery = '') {
   const container = document.getElementById('vocabularium-list');
   if (!container || currentVocabMode === 'home') return;
+
+  // Onerāre tantum capitula necessāria (pigrē)
+  const seq = ++vocabRenderSeq;
+  try {
+    if (currentVocabMode === 'capitulum') await onusCapitulum(currentVocabCapFilter);
+    else await onusOmniaCapitula();
+  } catch (err) {
+    container.innerHTML = '<p style="font-style:italic; color:#8B1E1E; padding:1rem;">Errōr: vocābulārium onerārī nōn potest.</p>';
+    return;
+  }
+  if (seq !== vocabRenderSeq || currentVocabMode === 'home') return;
 
   const query = filterQuery.trim().toLowerCase();
   let words = getAllVocab();
@@ -621,7 +662,8 @@ function applyCaseHighlighter() {
     tok.classList.remove('highlight-nominativus', 'highlight-genetivus', 'highlight-ablativus', 'highlight-verbum');
     if (!currentColorMode) return;
 
-    const data = JSON.parse(decodeURIComponent(tok.dataset.token));
+    const data = tokenOf(tok);
+    if (!data) return;
 
     if (currentColorMode === 'totum') {
       if (data.c === 'Nōminātīvus') tok.classList.add('highlight-nominativus');
@@ -640,12 +682,10 @@ function applyCaseHighlighter() {
   });
 }
 
-// 8. Normalizātiō Macrōnum
-function stripMacrons(str) {
-  return str.normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .toLowerCase()
-            .trim();
+// 8. Datum tokenī ex indice (data-i)
+function tokenOf(el) {
+  const i = parseInt(el?.dataset?.i, 10);
+  return Number.isNaN(i) ? null : (currentTokens[i] || null);
 }
 
 // 9. Event Listeners & Flow Mode (Auto-advance)
@@ -693,7 +733,8 @@ function setupEventListeners() {
     if (pinnedToken) return;
     const tokenEl = e.target.closest('.latin-token');
     if (tokenEl) {
-      showPopover(tokenEl, JSON.parse(decodeURIComponent(tokenEl.dataset.token)));
+      const d = tokenOf(tokenEl);
+      if (d) showPopover(tokenEl, d);
     } else {
       if (!e.target.closest('.popover-card')) {
         hidePopover();
@@ -704,7 +745,8 @@ function setupEventListeners() {
   document.addEventListener('click', (e) => {
     const tokenEl = e.target.closest('.latin-token');
     if (tokenEl) {
-      const data = JSON.parse(decodeURIComponent(tokenEl.dataset.token));
+      const data = tokenOf(tokenEl);
+      if (!data) return;
       if (pinnedToken === tokenEl) {
         pinnedToken = null;
         tokenEl.classList.remove('active');
@@ -1076,8 +1118,9 @@ function validateClozePensum(containerId, scoreId) {
       const userVal = input.value.trim();
       const expected = input.dataset.ans.trim();
 
-      const isExact = (userVal === expected);
-      const isLenient = (stripMacrons(userVal) === stripMacrons(expected));
+      const resultatum = comparaResponsum(userVal, expected);
+      const isExact = (resultatum === 'exacte');
+      const isLenient = (resultatum === 'lene');
 
       input.classList.remove('correct', 'incorrect');
 

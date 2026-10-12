@@ -5994,16 +5994,7 @@ export const capitulumOctavum = {
               "d": "Trēs līberōs habent"
             },
             {
-              "f": "",
-              "l": "",
-              "p": "Vocābulum",
-              "c": "—",
-              "n": "—",
-              "g": "—",
-              "d": "",
-              "lead": "—"
-            },
-            {
+              "lead": "— ",
               "f": "meī",
               "l": "meus, -a, -um",
               "p": "Prōnōmen possessīvum",
@@ -6291,16 +6282,7 @@ export const capitulumOctavum = {
               "d": "Locat in mēnsā (-it)"
             },
             {
-              "f": "",
-              "l": "",
-              "p": "Vocābulum",
-              "c": "—",
-              "n": "—",
-              "g": "—",
-              "d": "",
-              "lead": "—"
-            },
-            {
+              "lead": "— ",
               "f": "neque",
               "l": "neque",
               "p": "Coniūnctiō",
@@ -7436,16 +7418,7 @@ export const capitulumOctavum = {
               "d": "XC (nōnāgintā = 90)"
             },
             {
-              "f": "",
-              "l": "",
-              "p": "Vocābulum",
-              "c": "—",
-              "n": "—",
-              "g": "—",
-              "d": "",
-              "lead": "—"
-            },
-            {
+              "lead": "— ",
               "f": "aut",
               "l": "aut",
               "p": "Coniūnctiō disiūnctīva",

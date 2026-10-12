@@ -6834,16 +6834,7 @@ export const capitulumSeptimum = {
               "d": "tam longa quam..."
             },
             {
-              "f": "",
-              "l": "",
-              "p": "Vocābulum",
-              "c": "—",
-              "n": "—",
-              "g": "—",
-              "d": "",
-              "lead": "—"
-            },
-            {
+              "lead": "— ",
               "f": "hoc",
               "l": "hic, haec, hoc",
               "p": "Prōnōmen dēmōnstrātīvum",

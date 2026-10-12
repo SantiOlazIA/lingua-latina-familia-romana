@@ -19,3 +19,9 @@ desktop.ini
 
 # Scratch files
 scratch_*.txt
+
+# Fontes extractae (labor interna)
+fuentes/
+
+# Documenta personalia aliena a proiecto
+Carta Berni*
